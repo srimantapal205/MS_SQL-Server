@@ -62,4 +62,16 @@ CREATE SEQUENCE dbo.TestTempDB START WITH 1 INCREMENT BY 1 CACHE 10
 --DROP SEQUENCE OBJECT
 DROP SEQUENCE dbo.TestDB;
 
---
+--Associate Sequence OBJECT
+CREATE DATABASE Customers;
+
+CREATE TABLE dbo.Customer_v10(
+	ID INT DEFAULT(NEXT VALUE FOR dbo.TestTempDB), 
+	Name VARCHAR(100)
+)
+
+INSERt INTO dbo.Customer_v10(Name)
+	VALUES('Sara'), 
+	('Rout')
+
+SELECT  * FROM Customer_v10;		
