@@ -17,3 +17,26 @@ USE WhereClause;
 -- GROUP BY expression1, expression2, expression_n;
 
 -- -----------------------------------------------------
+SELECT COUNT(*) AS TotelEmployee FROM Employee;
+
+SELECT * FROM Employee;
+--Find the number of employee working in each department in the company
+
+SELECT DepartmentID , COUNT(*) AS TotalEmployee FROM Employee GROUP BY DepartmentID;
+
+--Find the total SALARY in each departmentof the ORGANIZATION.
+SELECT DepartmentId, TotalSalary = SUM(Salary) FROM Employee GROUP BY DepartmentID;
+
+-- Find The Highest Salary in each Departme in the Organization
+SELECT DepartmentId, MaxSalary = MAX(Salary) FROM Employee GROUP BY DepartmentID;
+
+--To Get the employees working in each Gender per Depertment
+SELECT DepartmentId, GenderId, EmployeeCount = COUNT(*) FROM Employee GROUP BY DepartmentID, GenderID ORDER BY GenderID;
+
+--To get the gender wise count and total salary.
+SELECT GenderId, Total_Salary = SUM(Salary), Gender_Count = COUNT(*) FROM Employee GROUP BY GenderID; 
+
+SELECT MAX(Salary) As Max_Salary , MIN(Salary) As Min_Salary FROM Employee;
+
+--Total salary by the city
+SELECT City, SUM(Salary) AS Total_Salary FROM Employee GROUP BY City 
