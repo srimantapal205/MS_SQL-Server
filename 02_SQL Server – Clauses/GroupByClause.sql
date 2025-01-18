@@ -40,3 +40,20 @@ SELECT MAX(Salary) As Max_Salary , MIN(Salary) As Min_Salary FROM Employee;
 
 --Total salary by the city
 SELECT City, SUM(Salary) AS Total_Salary FROM Employee GROUP BY City 
+
+-- Retrive total Salary by city and by gender
+SELECT City, GenderId, SUM(Salary)  AS Total_Salary FROM Employee GROUP BY City, GenderId ORDER BY City;
+
+--Retrive total salary and total number of employees by City by gender
+
+SELECT City, GenderId, SUM(Salary) AS TotalSalary, COUNT(ID) AS TotalEmployees FROM Employee GROUP BY City, GenderID;
+
+--The highest salary of each department alog with the name of the employee
+SELECT DepartmentId, MAX(Salary) AS Salary, Name FROM Employee GROUP BY  DepartmentID -- Invavalid;
+
+
+SELECT DepartmentId, MAX(Salary) as Salary, Name FROM Employee GROUP BY DepartmentId -- Invalid 
+
+SELECT DepartmentId, MAX(SALARY), GETDATE() AS DateTime FROM Employee  GROUP BY DepartmentId --Valid
+
+SELECT DepartmentId, GenderId, MAX(Salary) AS Max_Salary, 'Hello' as FixedValue FROM Employee GROUP BY DepartmentId, GenderId --Valid
