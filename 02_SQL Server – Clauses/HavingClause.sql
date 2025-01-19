@@ -31,12 +31,13 @@ SELECT City,  SUM(Salary) AS Total_Salary FROM Employee WHERE GenderID = 1 GROUP
 SELECT City, SUM(Salary) AS Total_Salary FROM Employee WHERE GenderID = 1 OR GenderID = 2 GROUP BY City HAVING City = 'MUMBAI';
 
 -- Having Clause Using SUM Function
-
+SELECT DepartmentID, SUM(Salary) AS Total_Salary FROM Employee GROUP BY DepartmentID HAVING SUM(Salary) > 140000; 
 
 -- Having Clause Using COUNT Function:
-
+SELECT City, COUNT(*) AS NumberOfEmployee FROM Employee GROUP BY City HAVING COUNT(*)>2;
 --Having Clause Using MIN Function:
-
+SELECT DepartmentID, MIN(Salary) AS LOwestSalary FROM Employee GROUP BY DepartmentID HAVING MIN(Salary)> 25000;
 --Having Clause Using MAX Function:
-
+SELECT DepartmentID, MAX(Salary) AS LOwestSalary FROM Employee GROUP BY DepartmentID HAVING MAX(Salary)> 70000;
 --Having Clause Using AVG Function:
+SELECT DepartmentID, AVG(Salary) AS LOwestSalary FROM Employee GROUP BY DepartmentID HAVING AVG(Salary)> 29000;
