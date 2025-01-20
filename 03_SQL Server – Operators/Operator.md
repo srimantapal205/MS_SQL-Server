@@ -15,11 +15,11 @@ SQL provides various operators to perform operations on data, grouped into categ
 
 | Operator	| Description   |	Example |
 | ------------- | ------------- | ------------- |
-|+|	Addition|	SELECT 10 + 5|;
-|-|	Subtraction|	SELECT 10 - 5|;
-|*|	Multiplication|	SELECT 10 * 5|;
-|/|	Division|	SELECT 10 / 5|;
-|%|	Modulus (remainder)	|SELECT 10 % 3;|
+|   +   |	Addition    |	SELECT 10 + 5   |  
+|   -   |	Subtraction |	SELECT 10 - 5   |
+|   *   |	Multiplication  |	SELECT 10 * 5   |
+|   /  |	Division    |	SELECT 10 / 5   |;
+|   %  |	Modulus (remainder) |   SELECT 10 % 3  |
 
 ### Comparison Operators
     Used to compare two values and return a Boolean result (TRUE, FALSE, or NULL).
