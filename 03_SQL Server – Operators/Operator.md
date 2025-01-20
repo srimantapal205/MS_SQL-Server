@@ -36,3 +36,22 @@ SQL provides various operators to perform operations on data, grouped into categ
 |IN	|Matches a set of values	|SELECT * FROM table WHERE age IN (25, 30, 35);|
 |LIKE	|Pattern matching	|SELECT * FROM table WHERE name LIKE 'A%';|
 |IS NULL	|Checks for NULL values	|SELECT * FROM table WHERE column_name IS NULL;|
+
+### Logical Operators
+    Used to combine conditions and filter data.
+
+|Operator |	Description|	Example|
+| ------------- | ------------- | ------------- |
+|AND|	Returns TRUE if all conditions are true	|SELECT * FROM table WHERE age > 30 AND salary > 50000|
+|OR	|Returns TRUE if any condition is true	|SELECT * FROM table WHERE age < 30 OR salary > 50000|
+|NOT|	Reverses the result of a condition	|SELECT * FROM table WHERE NOT age < 30|
+
+### Set Operators
+Used to combine the results of two or more queries.
+
+|Operator |	Description|	Example|
+| ------------- | ------------- | ------------- |
+|UNION	|Combines and removes duplicates from query results	|SELECT name FROM table1 UNION SELECT name FROM table2;|
+|UNION ALL|	Combines results without removing duplicates	|SELECT name FROM table1 UNION ALL SELECT name FROM table2;|
+|INTERSECT|	Returns common records from two queries	|SELECT name FROM table1 INTERSECT SELECT name FROM table2;|
+|EXCEPT	|Returns records from the first query not in the second	|SELECT name FROM table1 EXCEPT SELECT name FROM table2;|
