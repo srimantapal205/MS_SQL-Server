@@ -13,10 +13,10 @@
 ###  The ORDER BY clause in SQL Server
 ###  The TOP clause
 ###  Assignment Operator
-### 
-### 
-### 
-### 
+###  Arithmetic Operators in SQL
+###  Comparison Operators in SQL 
+###  Logical Operators in SQL
+###  IN BETWEEN and LIKE Operators in SQL
 ### 
 ### 
 ### 
