@@ -32,10 +32,7 @@ SQL provides various operators to perform operations on data, grouped into categ
 |<	|Less than	|SELECT * FROM table WHERE salary < 50000;|
 |>=	|Greater than or equal to	|SELECT * FROM table WHERE salary >= 50000;|
 |<=	|Less than or equal to	|SELECT * FROM table WHERE salary <= 50000;|
-|BETWEEN	|Within a range	|SELECT * FROM table WHERE age BETWEEN 20 AND 30;|
-|IN	|Matches a set of values	|SELECT * FROM table WHERE age IN (25, 30, 35);|
-|LIKE	|Pattern matching	|SELECT * FROM table WHERE name LIKE 'A%';|
-|IS NULL	|Checks for NULL values	|SELECT * FROM table WHERE column_name IS NULL;|
+
 
 ### Logical Operators
     Used to combine conditions and filter data.
@@ -45,6 +42,15 @@ SQL provides various operators to perform operations on data, grouped into categ
 |AND|	Returns TRUE if all conditions are true	|SELECT * FROM table WHERE age > 30 AND salary > 50000|
 |OR	|Returns TRUE if any condition is true	|SELECT * FROM table WHERE age < 30 OR salary > 50000|
 |NOT|	Reverses the result of a condition	|SELECT * FROM table WHERE NOT age < 30|
+
+### BETWEEN, IN LIKE, IS NULL Operators
+
+|Operator |	Description|	Example|
+| ------------- | ------------- | ------------- |
+|BETWEEN	|Within a range	|SELECT * FROM table WHERE age BETWEEN 20 AND 30;|
+|IN	|Matches a set of values	|SELECT * FROM table WHERE age IN (25, 30, 35);|
+|LIKE	|Pattern matching	|SELECT * FROM table WHERE name LIKE 'A%';|
+|IS NULL	|Checks for NULL values	|SELECT * FROM table WHERE column_name IS NULL;|
 
 ### Set Operators
 Used to combine the results of two or more queries.
