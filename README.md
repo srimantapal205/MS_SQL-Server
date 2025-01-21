@@ -17,9 +17,9 @@
 ###  Comparison Operators in SQL 
 ###  Logical Operators in SQL
 ###  IN BETWEEN and LIKE Operators in SQL
-### 
-### 
-### 
+###  ALL Operator
+###  ANY Operator 
+###  SOME operator
 ### 
 ### 
 ### 
