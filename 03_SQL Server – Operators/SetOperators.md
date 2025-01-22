@@ -35,3 +35,27 @@
     SELECT * FROM Sales2024;
 
 
+
+<p>
+The EXCEPT and INTERSECT operators in SQL Server are used to compare the results of two queries and return specific sets of data based on the differences or intersections between them. Both operators require the queries to have the same number of columns and compatible data types.
+</p>
+
+#### EXCEPT:
+<p>The EXCEPT operator returns rows from the first query that are not present in the second query. It is similar to the concept of a set difference in mathematics.</p>
+
+    SELECT column1, column2, ...
+    FROM Table1
+    EXCEPT
+    SELECT column1, column2, ...
+    FROM Table2;
+
+#### INTERSECT:
+<p>The INTERSECT operator returns rows that are common to both queries. It works like a set intersection in mathematics.</p>
+
+    SELECT column1, column2, ...
+    FROM Table1
+    INTERSECT
+    SELECT column1, column2, ...
+    FROM Table2;
+
+
