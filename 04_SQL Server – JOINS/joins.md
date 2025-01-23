@@ -11,17 +11,16 @@
     - Full Outer Join: Returns records when there is a match in either table or no match.
 
 #### Cross Join
+- Produces a Cartesian product, returning all possible combinations of rows from the two tables.
 
-Produces a Cartesian product, returning all possible combinations of rows from the two tables.
-Self-Join
+#### Self-Join
+- A table is joined with itself, usually with the use of aliases.
 
-A table is joined with itself, usually with the use of aliases.
-Natural Join
+#### Natural Join
+- Matches columns with the same name and compatible data types in both tables. (Note: SQL Server does not natively support natural joins; similar behavior can be achieved with other joins and explicit conditions.)
 
-Matches columns with the same name and compatible data types in both tables. (Note: SQL Server does not natively support natural joins; similar behavior can be achieved with other joins and explicit conditions.)
-Semi Join
-
-Filters rows from the left table based on the presence of a related row in the right table but does not return columns from the right table (implemented using EXISTS or IN).
+#### Semi Join
+- Filters rows from the left table based on the presence of a related row in the right table but does not return columns from the right table (implemented using EXISTS or IN).
 
 ANSI and NON-ANSI Joins in SQL Server
 ANSI Joins:
