@@ -84,7 +84,7 @@
 
 ### Difference Between JOIN and UNION in SQL Server
 |Feature	|JOIN	| UNION|
-----------------------------
+|-----------|-------|----------|
 |Purpose	|Combines columns from two tables.|	Combines rows from two result sets.|
 |Operation	|Works horizontally.|	Works vertically.|
 |Condition	|Requires a join condition.|	No join condition; requires similar structure.|
