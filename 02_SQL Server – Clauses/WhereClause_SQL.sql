@@ -118,3 +118,32 @@ UPDATE Employee SET Salary = 72000 WHERE DepartmentID = 4;
 
 -- Where Clause with Delete Stetement
 DELETE FROM Employee WHERE City = 'Austin';
+
+
+-- Create Projects Table
+CREATE TABLE Projects (
+    ProjectId INT PRIMARY KEY IDENTITY(1, 1),
+    Title VARCHAR(200) NOT NULL,
+    ClientId INT,
+    EmployeeId INT,
+    StartDate DATETIME,
+    EndDate DATETIME,
+    FOREIGN KEY (EmployeeId) REFERENCES Employee(ID)
+);
+ALTER TABLE Projects ADD CONSTRAINT employee_id_fk FOREIGN KEY (EmployeeId) REFERENCES Employee(ID);
+Go
+-- Populate Projects Table
+INSERT INTO Projects (Title, ClientId, EmployeeId, StartDate, EndDate) VALUES 
+('Develop new WordPress plugin for my business website', 2, 7, GETDATE(), (Getdate() + 85)),
+('Migrate web application and database to new server', 2, 4, GETDATE(), (Getdate() + 95)),
+('Android Application development', 4, 2, GETDATE(), (Getdate() + 60)),
+('Hosting account is not working', 3, 2, GETDATE(), (Getdate() + 70)),
+('MySQL database from my desktop application', 4, 1, GETDATE(), (Getdate() + 80)),
+('Develop new WordPress plugin for my business website', 2, 3, GETDATE(), (Getdate() + 90)),
+('Develop ecommerse website from scratch', 1, 2, GETDATE(), (Getdate() + 35)),
+('WordPress website for our company', 1, 4, GETDATE(), (Getdate() + 45)),
+('Manage our company servers', 2, 3, GETDATE(), (Getdate() + 55)),
+('MySQL database from my desktop application', 4, 3, GETDATE(), (Getdate() + 75)),
+('Hosting account is not working', 3, 4, GETDATE(), (Getdate() + 65));
+
+SELECT * FROM Projects;
