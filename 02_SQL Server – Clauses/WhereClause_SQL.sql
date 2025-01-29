@@ -62,7 +62,6 @@ ALTER TABLE Employee ADD CONSTRAINT employee_department_fk FOREIGN KEY (Departme
 Go
 
 
-
 -- Insert sample data into the Gender table
 INSERT INTO Gender (Gender) VALUES
 ('Male'),
@@ -147,3 +146,54 @@ INSERT INTO Projects (Title, ClientId, EmployeeId, StartDate, EndDate) VALUES
 ('Hosting account is not working', 3, 4, GETDATE(), (Getdate() + 65));
 
 SELECT * FROM Projects;
+
+CREATE TABLE Positions (
+ID INT NOT NULL IDENTITY(1,1),
+MTitle VARCHAR(50),
+EmployeeId INT,  
+CONSTRAINT pk_position PRIMARY KEY (ID),
+CONSTRAINT fk_pos_employeeid FOREIGN KEY(EmployeeId) REFERENCES Employee(ID)
+)
+
+DROP TABLE Positions;
+
+
+INSERT INTO Positions (MTitle, EmployeeId)
+VALUES
+('Manager', 1),
+('Senior Developer', 2),
+('HR Specialist', 3),
+('Finance Analyst', 4),
+('Team Lead', 8),
+('Marketing Head', 6),
+('Sales Manager', 7);
+
+
+SELECT * FROM Positions;
+
+ALTER TABLE Employee ADD PositionsId INT CONSTRAINT fk_emp_Position FOREIGN KEY REFERENCES Positions(ID);
+SELECT * FROM Employee;
+UPDATE Employee 
+SET PositionsId =
+    CASE 
+        WHEN ID = 1 THEN 1  
+        WHEN ID = 2 THEN 6  
+        WHEN ID = 3 THEN 7  
+        WHEN ID = 4 THEN 8  
+        WHEN ID = 6 THEN 9  
+        WHEN ID = 7 THEN 10 
+        WHEN ID = 8 THEN 11
+		WHEN ID = 11 THEN 1  
+        WHEN ID = 12 THEN 6  
+        WHEN ID = 13 THEN 7  
+        WHEN ID = 14 THEN 8  
+        WHEN ID = 16 THEN 9  
+        WHEN ID = 17 THEN 10 
+        WHEN ID = 18 THEN 11
+		WHEN ID = 21 THEN 1  
+        WHEN ID = 22 THEN 6  
+        WHEN ID = 23 THEN 7  
+        WHEN ID = 24 THEN 8  
+        WHEN ID = 26 THEN 9  
+        WHEN ID = 27 THEN 10 
+    END;
