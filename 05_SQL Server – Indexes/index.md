@@ -117,7 +117,7 @@ Use SQL Server DMV (Dynamic Management Views) to analyze index performance.
 
 |Index |Type	|Description	|Best Use Case|
 |-------|--------|---------------|-------------|
-|Clustered Index	|Sorts table physically	Primary key, range queries|
+|Clustered Index	|Sorts table physically	 Primary key, range queries|
 |Non-Clustered Index|	Stores pointers to data|	Fast lookups on non-PK columns|
 |Unique Index	|Ensures unique values	|Enforce uniqueness (e.g., emails)|
 |Composite Index	|Index on multiple columns|	Queries filtering by multiple columns|
