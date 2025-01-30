@@ -115,7 +115,7 @@ Use SQL Server DMV (Dynamic Management Views) to analyze index performance.
     SELECT * FROM sys.dm_db_missing_index_details;
 
 
-|Index |Type	|Description	|Best Use Case|
+|Index Type	|Description	|Best Use Case|
 |-------|--------|---------------|-------------|
 |Clustered Index	|Sorts table physically	| Primary key, range queries|
 |Non-Clustered Index|	Stores pointers to data | Fast lookups on non-PK columns|
