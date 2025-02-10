@@ -13,16 +13,16 @@ B-Trees ensure that searches, inserts, and deletions occur in logarithmic time (
 How will the database engine retrieve the data from a table?
 SQL Server retrieves data using either:
 
-Table Scan (if no index exists) – Reads the entire table row by row.
-Index Seek (if an index exists and is selective) – Directly navigates to relevant rows using a B-Tree.
-Index Scan (if an index exists but is not selective enough) – Reads all indexed values instead of scanning the full table.
+Table Scan (if no index exists) ï¿½ Reads the entire table row by row.
+Index Seek (if an index exists and is selective) ï¿½ Directly navigates to relevant rows using a B-Tree.
+Index Scan (if an index exists but is not selective enough) ï¿½ Reads all indexed values instead of scanning the full table.
 
 What is an Index in SQL Server?
 It is a database object in SQL Server which is used to improve the performance of search operations.
 When we create an index on any column of a table, then SQL Server internally maintains a separate table called the index table. And when we are trying to retrieve the data from the existing table, depending on the index table, SQL Server directly goes to the table and retrieves the data very quickly.
 In a table, we can use a maximum of 1000 indexes (1 Clustered Index plus 999 Non-Clustered Index).
 When SQL Server uses Indexes?
-The SQL Server uses indexes of a table provided that the select or update or delete statement contained the “WHERE” clause and moreover the where condition column must be an indexed column. If the select statement contains an “ORDER BY” clause then also the indexes can be used.
+The SQL Server uses indexes of a table provided that the select or update or delete statement contained the ï¿½WHEREï¿½ clause and moreover the where condition column must be an indexed column. If the select statement contains an ï¿½ORDER BYï¿½ clause then also the indexes can be used.
 
 Note: When SQL Server is searching for information under the database, first it will verify the best execution plan for retrieving the data and uses that plan which can be either a full-page scan or an index scan.
 
@@ -88,13 +88,3 @@ BEGIN
 		END
 END
 
-SELECT * FROM tblOrder;
---DROP TABLE tblOrder;
-
-SELECT * FROM tblOrder WHERE ProductID = 'Product - 101';
-
---Creating Non-clustered Index in SQL Server:
-
-CREATE NONCLUSTERED INDEX IX_tblOrder_ProductId ON dbo.tblOrder (ProductID) INCLUDE ([Id], [CustomerId])
-
-SELECT * FROM tblOrder WHERE CustomerId = 3 and ProductName = 'Pendrive';

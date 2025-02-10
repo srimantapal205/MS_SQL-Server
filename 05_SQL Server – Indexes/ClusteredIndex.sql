@@ -18,6 +18,13 @@ A table can have only one Clustered Index because the data rows can be stored in
 
 However, a table can have multiple Non-Clustered Indexes, as they store pointers to the actual data instead of dictating physical order.
 
-
+Understanding the SQL Server Composite Clustered Index
+A Composite Clustered Index is created when a Clustered Index is defined on multiple columns. It sorts the data first by the first column, then by the second column in case of duplicates.
 
 */
+
+USE WhereClause
+GO
+
+
+Execute sp_helpindex Employee;
