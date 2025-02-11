@@ -38,3 +38,25 @@ SELECT  E.Name AS Employee_Name, E.EmailID, E.Salary, D.Name AS Departmernt FROM
  SELECT DISTINCT Employee.ID, Employee.*, Department.*, Gender.* FROM Employee FULL OUTER JOIN Department ON Employee.DepartmentID = Department.ID FULL OUTER JOIN Gender ON Employee.GenderID = Gender.ID WHERE Employee.ID  IS NOT NULL AND Employee.PositionsId IS NOT NULL; 
 
 
+ -- O4 What is the difference between HAVING and WHERE in SQL?
+ /*
+ The Group by clause is used to group rows thar have the same values in specified columns into summary rows, like categories.
+ 
+ It is often used in conjuction with aggregate function (e.g. COUNT, SUM, AVG, MAX, MIN) to perform calculation on each group of rows
+
+ */
+
+ --SELECT Employee.Name AS Employee_Name, Department.Name AS Department, AVG(Employee.Salary) FROM Employee LEFT OUTER JOIN  Department ON Employee.DepartmentID = Department.ID GROUP BY Department.Name;
+
+
+  SELECT Employee.DepartmentID, AVG(Salary) AS AVG_Salary FROM Employee GROUP BY DepartmentID;
+
+-- Having Clause
+-- The having clause is used to filter the result of a Group By query based on specified condition
+
+SELECT Employee.DepartmentID, AVG(Employee.Salary) AS Avg_Salary FROM Employee GROUP BY DepartmentID HAVING AVG(Employee.Salary)>50000;
+
+
+ 
+
+
