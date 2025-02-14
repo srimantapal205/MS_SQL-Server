@@ -80,3 +80,34 @@ INSERT INTO test_example_table (TName)
 
 SELECT * FROM test_example_table;
 
+CREATE TABLE test_example_job_table(
+	jobId INT CONSTRAINT job_pk PRIMARY KEY IDENTITY(1,1),
+	jobName VARCHAR(30)
+)
+
+INSERT INTO test_example_job_table(jobName) 
+	VALUES('Manager'),
+('Senior Developer'),
+('HR Specialist'),
+('Finance Analyst'),
+('Team Lead'),
+('Marketing Head'),
+('Sales Manager');
+
+SELECT * FROM test_example_job_table;
+
+/*
+Explain about the set operator in sql.
+In SQL provides several set operators that allow you to combine the result of multiple queries or tables. the main set operators include UNION, UNION ALL, INTERSECT, and MINUS(EXCEPT in some database system)
+
+*/
+--UNION: Union and Union all operator combines the result set of two or more select statement . How ever it's does not remove duplicate rows it's include all row from each query.
+
+SELECT * FROM test_example_table UNION SELECT * FROM test_example_job_table;
+SELECT * FROM test_example_table UNION ALL SELECT * FROM test_example_job_table;
+
+-- INTERSECT : The INTERSECT operator is used to retrive the common row that apper in both result set of two SELECT statement.
+SELECT * FROM test_example_job_table 
+INTERSECT SELECT * FROM test_example_table;
+
+
