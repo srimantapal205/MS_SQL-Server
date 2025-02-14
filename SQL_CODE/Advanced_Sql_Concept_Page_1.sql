@@ -3,6 +3,10 @@ GO
 
 -- 1. How Do you find the last id in a SQL
 SELECT * FROM Employee;
+SELECT * FROM Department;
+SELECT * FROM Gender;
+SELECT * FROM Positions;
+SELECT * FROM Projects;
 
 SELECT MAX(ID) AS Last_Id FROM Employee;
 -- This Query select the maxmimu (largest) value.  
@@ -57,6 +61,22 @@ SELECT  E.Name AS Employee_Name, E.EmailID, E.Salary, D.Name AS Departmernt FROM
 SELECT Employee.DepartmentID, AVG(Employee.Salary) AS Avg_Salary FROM Employee GROUP BY DepartmentID HAVING AVG(Employee.Salary)>50000;
 
 
- 
+/*
+5. Explain about Auto increment in SQL?
 
+In sql the auto increment feature is often used to generate unique sequential numeric values automatically for a column.
+This is tipically used for primary key column to ensure each row has a unic identifier.
+
+*/
+CREATE TABLE test_example_table(
+	Id INT CONSTRAINT test_exTb_pk PRIMARY KEY IDENTITY(1,1),
+	TName VARCHAR(30)
+)
+
+INSERT INTO test_example_table (TName) 
+	VALUES ('John Doe'),
+		('Jane Smith'),
+		('Chris Johnson');
+
+SELECT * FROM test_example_table;
 
