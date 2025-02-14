@@ -110,4 +110,20 @@ SELECT * FROM test_example_table UNION ALL SELECT * FROM test_example_job_table;
 SELECT * FROM test_example_job_table 
 INTERSECT SELECT * FROM test_example_table;
 
+SELECT * FROM Employee WHERE Salary= (SELECT MAX(Salary) FROM Employee) 
+/*
+7. Give SQL query to retrive nth record from an employee table.
 
+*/
+-- Method 1 - Using LIMIT and OFFSET
+SELECT * FROM Employee ORDER BY Salary DESC OFFSET 2 ROWS FETCH NEXT 1 ROWS ONLY; 
+-- ORDER BY It is specified the column based order
+-- OFFSET <Number of Row> ROW: It is skip the number of rows so starting point is your requried row.
+-- FETCH NEXT 1 ROWS Only: It retrives the next 1 row after the offset.
+
+-- Method 2 - Using Row number
+SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowNum FROM Employee) AS SUB WHERE RowNum = 3
+
+
+WITH RankedSalary AS(SELECT *, ROW_NUMBER() OVER (ORDER BY Salary DESC) AS rnk FROM Employee)
+SELECT * FROM RankedSalary WHERE rnk = 3
