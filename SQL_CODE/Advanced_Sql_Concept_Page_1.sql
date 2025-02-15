@@ -124,6 +124,28 @@ SELECT * FROM Employee ORDER BY Salary DESC OFFSET 2 ROWS FETCH NEXT 1 ROWS ONLY
 -- Method 2 - Using Row number
 SELECT * FROM (SELECT *, ROW_NUMBER() OVER (ORDER BY Salary DESC) AS RowNum FROM Employee) AS SUB WHERE RowNum = 3
 
-
+-- Method 3 - Using Row number
 WITH RankedSalary AS(SELECT *, ROW_NUMBER() OVER (ORDER BY Salary DESC) AS rnk FROM Employee)
 SELECT * FROM RankedSalary WHERE rnk = 3
+
+WITH cte AS (SELECT Employee.ID, Employee.Name, ROW_NUMBER() OVER(PARTITION BY Employee.ID, Employee.Name ORDER BY Employee.ID) AS row_num FROM Employee )
+SELECT * FROM cte Where row_num = 1;
+
+WITH cte AS (SELECT ID, Name, Salary, ROW_NUMBER() OVER (PARTITION BY Name ORDER BY ID) AS row_num  FROM Employee)  
+SELECT ID, Name, Salary FROM cte WHERE row_num = 1;
+
+
+-- 8. Explain how to get unique records without using the DISTINCT keyword.
+
+
+-- 9. How to select all even or all odd records in a table ? 
+
+-- All even 
+SELECT * FROM Employee WHERE ID %2 = 0;
+
+-- Odd even
+SELECT * FROM Employee WHERE ID %2  != 0;
+--or--
+SELECT * FROM Employee WHERE ID % 2 <> 0 ;
+
+
