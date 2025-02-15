@@ -148,4 +148,5 @@ SELECT * FROM Employee WHERE ID %2  != 0;
 --or--
 SELECT * FROM Employee WHERE ID % 2 <> 0 ;
 
-
+-- 11. Explain about non clusterd index?
+CREATE NONCLUSTERED INDEX NIX_Name ON Employee (Name ASC)
