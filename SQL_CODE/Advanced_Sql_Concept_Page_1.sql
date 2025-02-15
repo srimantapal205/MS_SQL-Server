@@ -135,6 +135,12 @@ WITH cte AS (SELECT ID, Name, Salary, ROW_NUMBER() OVER (PARTITION BY Name ORDER
 SELECT ID, Name, Salary FROM cte WHERE row_num = 1;
 
 
+SELECT * FROM Employee ORDER BY ID OFFSET 8 ROWS FETCH NEXT 1 ROWS ONLY
+
+SELECT * FROM Employee ORDER BY Salary ASC OFFSET 0 ROWS FETCH NEXT 1 ROWS ONLY
+
+SELECT * FROM Employee WHERE Salary= (SELECT MIN(Salary) FROM Employee) ORDER BY  Salary OFFSET 1 ROWS FETCH NEXT 1 ROWS ONLY
+
 -- 8. Explain how to get unique records without using the DISTINCT keyword.
 
 
@@ -150,3 +156,6 @@ SELECT * FROM Employee WHERE ID % 2 <> 0 ;
 
 -- 11. Explain about non clusterd index?
 CREATE NONCLUSTERED INDEX NIX_Name ON Employee (Name ASC)
+
+
+SELECT City, COUNT(*) AS City_Emp_COUNT FROM Employee  WHERE City IN ('New York', 'BANGALORE') GROUP BY City
