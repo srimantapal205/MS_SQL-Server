@@ -41,6 +41,7 @@ WITH EmployeeCTEv1 AS (
 SELECT TOP 1 Salary FROM EmployeeCTEv1 WHERE Rank_Salary = 3
 
 
+
 -- Fetch the 2nd Highest Salary using DENSE_RANK Function:
 WITH EemployeeCTEv2 AS (
 	SELECT Name,  Salary, DENSE_Rank() OVER(ORDER BY Salary DESC) AS DenseRank_Salary FROM Employee
