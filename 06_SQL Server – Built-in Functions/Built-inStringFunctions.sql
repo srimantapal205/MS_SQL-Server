@@ -37,6 +37,49 @@ BEGIN
 END
 
 
+-- Remove the white space from any string
+-- For left side use LTRIM()
+SELECT LTRIM('     Hello World')
+
+-- For Right side RTRIM()
+
+SELECT RTRIM('Hello World       ')
+
+
+-- Fro remove left and right side space
+
+SELECT LTRIM(RTRIM('     Hello World         '))
+
+
+--- Convert string to upper case and lowe case
+
+SELECT UPPER('convert string to upper case')
+
+SELECT LOWER('CONVERT STRING TO LOWER CASE')
+SELECT LOWER('A, B ,C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z')
+
+-- Reverse string
+
+SELECT REVERSE('A, B ,C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z')
+
+
+-- Get length of any string with space
+SELECT LEN('Get String Length   ')
+
+
+-- Display the specific number of characters based on left and right
+
+SELECT LEFT('ABCD', 2)
+SELECT RIGHT('ABCD', 2)
+
+-- Get the character index
+SELECT CHARINDEX('@', 'test@test.com')
+
+-- using sub string
+
+-- Dynamically retrive the string
+
+SELECT SUBSTRING('test@test.com', (CHARINDEX('@', 'test@test.com')+1), (LEN('test@test.com')-CHARINDEX('@', 'test@test.com')))
 
 
 
