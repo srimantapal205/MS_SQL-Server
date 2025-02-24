@@ -131,7 +131,7 @@ SELECT * FROM RankedSalary WHERE rnk = 3
 WITH cte AS (SELECT Employee.ID, Employee.Name, ROW_NUMBER() OVER(PARTITION BY Employee.ID, Employee.Name ORDER BY Employee.ID) AS row_num FROM Employee )
 SELECT * FROM cte Where row_num = 1;
 
-WITH cte AS (SELECT ID, Name, Salary, ROW_NUMBER() OVER (PARTITION BY Name ORDER BY ID) AS row_num  FROM Employee)  
+  
 SELECT ID, Name, Salary FROM cte WHERE row_num = 1;
 
 
