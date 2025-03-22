@@ -107,6 +107,12 @@ SELECT DepartmentID, D.Name, COUNT(*)AS TOTAL_Employee FROM Employee  INNER JOIN
 
 SELECT Salary FROM Employee ORDER BY Salary DESC OFFSET 2 ROWS FETCH NEXT 2 ROWS ONLY;
 
+-- Common Table Expression
+WITH AvarageSalaryDepartmentWise AS (SELECT DepartmentId, AVG(Salary) AS AvgSalary FROM Employee GROUP BY DepartmentID )
+SELECT * FROM AvarageSalaryDepartmentWise ORDER BY AvgSalary DESC;
 
+-- Agreegate Window Function
+
+SELECT Name, Age, DepartmentID, Salary, AVG(Salary) OVER(PARTITION BY DepartmentID) AS AVG_Salary FROM Employee 
 
 
