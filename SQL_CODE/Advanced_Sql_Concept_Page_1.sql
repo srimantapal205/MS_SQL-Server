@@ -162,3 +162,54 @@ CREATE NONCLUSTERED INDEX NIX_Name ON Employee (Name ASC)
 
 
 SELECT City, COUNT(*) AS City_Emp_COUNT FROM Employee  WHERE City IN ('New York', 'BANGALORE') GROUP BY City
+
+
+
+CREATE TABLE InputData(
+	Date DATE,
+	Customer VARCHAR(10),
+	Price INT
+)
+
+INSERT INTO InputData(Date, Customer, Price) VALUES
+('2023-01-01', 'C1', 20),
+('2023-01-01', 'C2', 20),
+('2023-01-02', 'C2', 50),
+('2023-01-02', 'C3', 12),
+('2023-01-03', 'C4', 20),
+('2023-01-03', 'C5', 100),
+('2023-01-03', 'C1', 123);
+
+
+
+SELECT DISTINCT(Customer) FROM InputData
+
+SELECT Date, Count(DISTINCT(Customer)) AS Price_Count FROM InputData GROUP BY Date
+
+SELECT * FROM InputData;
+SELECT Date, COUNT(DISTINCT Customer) AS Price_Coun
+FROM InputData
+GROUP BY Date
+ORDER BY Date;
+
+CREATE TABLE Aa(
+cl_A VARCHAR(5)
+)
+
+CREATE TABLE Bb(
+cl_B VARCHAR(5)
+)
+
+INSERT INTO Aa VALUES
+(1),(1),(null)
+
+INSERT INTO Bb VALUES
+(1),(1),(1),(null),('  ')                                                                                                        
+
+DROP TABLE Aa;
+SELECT * FROM Aa;
+SELECT * FROM Bb;
+
+SELECT * FROM Aa INNER JOIN Bb ON cl_A = cl_B;
+SELECT * FROM Aa LEFT JOIN Bb ON cl_A = cl_B;
+SELECT * FROM Aa RIGHT JOIN Bb ON cl_A = cl_B;
