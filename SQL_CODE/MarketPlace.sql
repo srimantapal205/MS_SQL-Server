@@ -2,6 +2,7 @@ CREATE DATABASE MarketPlace;
 USE MarketPlace
 GO
 
+-- https://www.geeksforgeeks.org/sql-exercises/
 -- Create Sales table
 
 CREATE TABLE Sales (

@@ -181,35 +181,68 @@ INSERT INTO InputData(Date, Customer, Price) VALUES
 ('2023-01-03', 'C1', 123);
 
 
+WITH FirstOccurrence AS (
+    SELECT 
+        Date,
+        Customer,
+        Price,
+        ROW_NUMBER() OVER (PARTITION BY Customer ORDER BY Date) AS rn
+    FROM InputData
+)
+SELECT 
+    Date,
+    COUNT(*) AS Price_Count
+FROM FirstOccurrence
+WHERE rn = 1  -- Only include the first occurrence of each customer
+GROUP BY Date
+ORDER BY Date;
+
+/*
+OUT PUT
+Date	Price_Count
+1/1/2023	2
+1/2/2023	1
+1/3/2023	2
+
+
+*/
+
 
 SELECT DISTINCT(Customer) FROM InputData
 
 SELECT Date, Count(DISTINCT(Customer)) AS Price_Count FROM InputData GROUP BY Date
 
 SELECT * FROM InputData;
-SELECT Date, COUNT(DISTINCT Customer) AS Price_Coun
+SELECT Date, COUNT(DISTINCT Customer) AS Price_Coun 
 FROM InputData
 GROUP BY Date
 ORDER BY Date;
 
-CREATE TABLE Aa(
-cl_A VARCHAR(5)
+
+
+CREATE TABLE A(
+col1 VARCHAR(5)
 )
 
-CREATE TABLE Bb(
-cl_B VARCHAR(5)
+CREATE TABLE B(
+col1 VARCHAR(5)
 )
 
-INSERT INTO Aa VALUES
-(1),(1),(null)
+INSERT INTO A (Col1) VALUES 
+(1), (1), (NULL);
 
-INSERT INTO Bb VALUES
-(1),(1),(1),(null),('  ')                                                                                                        
+INSERT INTO B (Col1) VALUES
+(1),(1),(1),(null),('')                                                                                                        
 
-DROP TABLE Aa;
-SELECT * FROM Aa;
-SELECT * FROM Bb;
+DROP TABLE A;
+DROP TABLE B;
 
-SELECT * FROM Aa INNER JOIN Bb ON cl_A = cl_B;
-SELECT * FROM Aa LEFT JOIN Bb ON cl_A = cl_B;
-SELECT * FROM Aa RIGHT JOIN Bb ON cl_A = cl_B;
+SELECT * FROM A;
+SELECT * FROM B;
+
+SELECT A.Col1 AS Col_A, B.Col1 AS Col_B FROM A INNER JOIN B ON A.Col1 = B.Col1;
+SELECT A.Col1 AS A_Col1, B.Col1 AS B_Col1 FROM A LEFT JOIN B ON A.Col1 = B.Col1;
+
+SELECT A.Col1 AS A_Col1, B.Col1 AS B_Col1 FROM A RIGHT JOIN B ON A.Col1 = B.Col1;
+
+SELECT A.Col1 AS A_Col1, B.Col1 AS B_Col1 FROM A FULL OUTER JOIN B ON A.Col1 = B.Col1;
