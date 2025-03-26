@@ -111,4 +111,18 @@ SELECT product_name, unit_price FROM Products ORDER BY unit_price DESC;
 SELECT ROUND(SUM(total_price), 2) AS TotalPrice FROM Sales
 
 -- 16. Calculate the average total_price of sales in the Sales table.
+SELECT ROUND(AVG(total_price),2) AS Avarage_Total_Price FROM Sales
 
+-- 17. Retrieve the sale_id and sale_date from the Sales table, formatting the sale_date as 'YYYY-MM-DD'.
+SELECT sale_id, FORMAT(sale_date, 'yyyy-MM-dd' ) AS Formated_date FROM Sales
+
+-- 18. Calculate the total revenue generated from sales of products in the 'Electronics' category.
+SELECT category AS Product_Category,  SUM(total_price) AS TOTAL_Revenue_By_catagory FROM Sales INNER JOIN Products ON Sales.product_id = Products.product_id GROUP BY Products.category;
+
+SELECT SUM(total_price) AS TOTAL_Revenue_By_Electronics_catagory FROM Sales INNER JOIN Products ON Sales.product_id = Products.product_id WHERE category = 'Electronics';
+
+-- 19. Retrieve the product_name and unit_price from the Products table, filtering the unit_price to show only values between $20 and $600.
+SELECT product_name, unit_price  FROM Products WHERE unit_price BETWEEN  20 AND 600;
+
+--20. Retrieve the product_name and category from the Products table, ordering the results by category in ascending order.
+SELECT product_name, category  FROM  Products ORDER BY category ASC;
