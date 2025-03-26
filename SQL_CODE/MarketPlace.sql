@@ -77,6 +77,38 @@ SELECT CAST(AVG(unit_price) AS INT) AS average_unit_price FROM Products; -- 173
 
 -- 10. Calculate the total quantity_sold from the Sales table.
 
-SELECT * FROM Sales;
 
 SELECT SUM(quantity_sold) AS quantity_sold FROM Sales;
+
+
+-- 26-03-2025 ------------
+-- 11. Count Sales Per Day from the Sales table
+
+
+SELECT DISTINCT sale_date , SUM(quantity_sold) AS Total_Quentity_count FROM Sales GROUP BY sale_date;
+
+SELECT sale_date, COUNT(*) AS Sale_count FROM Sales GROUP BY sale_date ORDER BY sale_date;
+
+-- 12 Retrieve product_name and unit_price from the Products table with the Highest Unit Price.
+SELECT * FROM Sales;
+SELECT * FROM Products;
+
+SELECT product_name, unit_price FROM Products ORDER BY unit_price DESC OFFSET 0  ROWS FETCH NEXT 1 ROW ONLY; 
+
+SELECT TOP 1 product_name, unit_price  FROM Products ORDER BY unit_price DESC;
+
+SELECT *  FROM Products WHERE unit_price = (SELECT MAX(unit_price) FROM Products);
+
+SELECT product_name, MAX(unit_price) AS HighestUnitPrice FROM Products GROUP BY product_name HAVING MAX(unit_price) = (SELECT MAX(unit_price) FROM Products);
+
+-- 13. Retrieve the sale_id, product_id, and total_price from the Sales table for sales with a quantity_sold greater than 4.
+SELECT sale_id, product_id, total_price FROM Sales WHERE quantity_sold > 4
+
+-- 14. Retrieve the product_name and unit_price from the Products table, ordering the results by unit_price in descending order.
+SELECT product_name, unit_price FROM Products ORDER BY unit_price DESC;
+
+-- 15. Retrieve the total_price of all sales, rounding the values to two decimal places.
+SELECT ROUND(SUM(total_price), 2) AS TotalPrice FROM Sales
+
+-- 16. Calculate the average total_price of sales in the Sales table.
+
