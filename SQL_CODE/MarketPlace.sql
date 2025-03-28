@@ -127,8 +127,7 @@ SELECT product_name, unit_price  FROM Products WHERE unit_price BETWEEN  20 AND 
 SELECT product_name, category  FROM  Products ORDER BY category ASC;
 
 -- 27-03-2025
-SELECT * FROM Sales;
-SELECT * FROM Products;
+
 --1. Calculate the total quantity_sold of products in the 'Electronics' category.
 SELECT SUM(quantity_sold) AS Total_Quentity_Sold, category AS Sold_Quentity_BY_Category FROM Sales INNER JOIN Products ON Sales.product_id = Products.product_id WHERE category='Electronics' GROUP BY category;
 
@@ -154,5 +153,53 @@ SELECT category, AVG(unit_price) AS  Higest_Avarage_Price  FROM Products  GROUP 
 
 SELECT * FROM Sales FULL JOIN Products ON Sales.product_id = Products.product_id;
 
-SELECT product_name FROM Sales INNER JOIN Products ON Sales.product_id = Products.product_id GROUP BY product_name H
+SELECT product_name FROM Sales INNER JOIN Products ON Sales.product_id = Products.product_id GROUP BY product_name;
+
+-- 28-03-2025
+SELECT * FROM Sales;
+SELECT * FROM Products;
+
+-- 8. Count the number of sales made in each month.
+SELECT FORMAT(s.sale_date, 'yyyy-%MM') AS monthly_count,COUNT(*) AS Sales_count FROM Sales s GROUP BY FORMAT(s.sale_date, 'yyyy-%MM') ORDER BY monthly_count;
+
+-- Retrieve Sales Details for Products with 'Smart' in Their Name
+SELECT Sales.sale_id, Sales.sale_date, Sales.product_id, Sales.quantity_sold, Sales.total_price FROM Sales INNER JOIN Products ON Sales.product_id = Products.product_id  WHERE Products.product_name LIKE 'Smart%' 
+
+-- 10. Determine the average quantity sold for products with a unit price greater than $100.
+SELECT AVG(quantity_sold) AS AVG_Count  FROM Sales INNER JOIN Products ON Sales.product_id = Products.product_id WHERE unit_price > 100;
+
+-- 11. Retrieve the product name and total sales revenue for each product.
+
+SELECT p.product_name, SUM(s.total_price) AS Total_revenue FROM Products p INNER JOIN Sales s ON p.product_id = s.product_id GROUP BY p.product_name ORDER BY Total_revenue DESC;
+
+-- 12. List all sales along with the corresponding product names.
+SELECT s.sale_id, s.product_id, p.product_name FROM Sales s INNER JOIN Products p ON s.product_id = p.product_id
+
+-- 13. Retrieve the product name and total sales revenue for each product.
+SELECT p.category, 
+		SUM(s.total_price) AS category_Sales_Revenue, 
+		(SUM(s.total_price)/(SELECT SUM(total_price) FROM Sales))*100 AS Revenue_Percentage 
+FROM Sales s 
+JOIN Products p 
+ON s.product_id = p.product_id 
+GROUP BY p.category
+ORDER BY Revenue_Percentage DESC;
+
+--14. Rank products based on total sales revenue.
+
+SELECT 
+	p.product_name,
+	SUM(s.total_price) AS Total_revenue,
+	RANK() OVER(ORDER BY SUM(s.total_price) DESC) AS Revenue_Rank
+FROM Sales s JOIN Products p ON s.product_id = p.product_id 
+GROUP BY p.product_name;
+
+
+-- 15. Calculate the running total revenue for each product category.
+SELECT 
+	p.category, 
+	p.product_name, 
+	s.sale_date,
+	SUM(s.total_price) OVER(PARTITION BY p.category ORDER BY s.sale_date) AS running_total_revenue
+FROM Sales s JOIN Products p ON s.product_id = p.product_id
 
