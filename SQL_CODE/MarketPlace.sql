@@ -203,3 +203,27 @@ SELECT
 	SUM(s.total_price) OVER(PARTITION BY p.category ORDER BY s.sale_date) AS running_total_revenue
 FROM Sales s JOIN Products p ON s.product_id = p.product_id
 
+-- 01-04-2025
+SELECT 
+
+-- 16. Categorize sales as "High", "Medium", or "Low" based on total price (e.g., > $200 is High, $100-$200 is Medium, < $100 is Low).
+SELECT sale_id, 
+	CASE 
+		WHEN total_price > 200 THEN 'High'
+		WHEN total_price BETWEEN 100 AND 200 THEN 'Medium'
+		ELSE 'Low'
+	END AS sales_category
+FROM Sales;
+
+--17. Identify sales where the quantity sold is greater than the average quantity sold.
+SELECT * FROM Sales WHERE quantity_sold > (SELECT AVG(quantity_sold) FROM Sales)
+
+-- 18. Extract the month and year from the sale date and count the number of sales for each month.
+SELECT CONCAT(YEAR(sale_date), '-', LPAD(MONTH(sale_date), 2, 0) ) AS month_name, COUNT(1) AS sales_count FROM Sales
+
+
+
+
+
+
+
