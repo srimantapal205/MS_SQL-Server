@@ -219,11 +219,21 @@ FROM Sales;
 SELECT * FROM Sales WHERE quantity_sold > (SELECT AVG(quantity_sold) FROM Sales)
 
 -- 18. Extract the month and year from the sale date and count the number of sales for each month.
-SELECT CONCAT(YEAR(sale_date), '-', LPAD(MONTH(sale_date), 2, 0) ) AS month_name, COUNT(1) AS sales_count FROM Sales
+SELECT 
+    CONCAT(YEAR(sale_date), '-', RIGHT('0' + CAST(MONTH(sale_date) AS VARCHAR(2)), 2)) AS month_name, 
+    COUNT(1) AS sales_count 
+FROM Sales
+GROUP BY YEAR(sale_date), MONTH(sale_date)
+ORDER BY month_name;
 
+-- 19. Calculate the number of days between the current date and the sale date for each sale.
+SELECT sale_id, DATEDIFF(DAY, sale_date, GETDATE()) AS Day_Since_Sale FROM Sales
 
-
-
-
-
+-- 20. Identify sales made during weekdays versus weekends.
+SELECT sale_date,  
+	CASE
+		WHEN DATEPART(WEEKDAY, sale_date) IN (1, 7) THEN 'WeekEnd'
+		ELSE 'Weekday'
+	END AS day_type
+FROM Sales
 
