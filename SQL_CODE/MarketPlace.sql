@@ -204,7 +204,6 @@ SELECT
 FROM Sales s JOIN Products p ON s.product_id = p.product_id
 
 -- 01-04-2025
-SELECT 
 
 -- 16. Categorize sales as "High", "Medium", or "Low" based on total price (e.g., > $200 is High, $100-$200 is Medium, < $100 is Low).
 SELECT sale_id, 
@@ -236,4 +235,50 @@ SELECT sale_date,
 		ELSE 'Weekday'
 	END AS day_type
 FROM Sales
+
+-- SQL Practice Exercises for Advanced
+SELECT * FROM Products;
+SELECT * FROM Sales;
+--1. List the Top 3 Products by Revenue Contribution Percentage
+SELECT TOP 3
+	p.product_name,  
+	SUM(s.total_price) AS Total_Revenue,
+	(SUM(s.total_price) / (SELECT SUM(total_price) FROM Sales)) * 100 AS Revenue_Percentage
+FROM Sales s 
+	JOIN  Products p ON s.product_id = p.product_id
+	GROUP BY p.product_name
+	ORDER BY Revenue_Percentage DESC
+
+-- 2. Write a query to create a view named Total_Sales that displays the total sales amount for each product along with their names and categories.
+
+CREATE VIEW Total_Sales AS
+SELECT  
+	p.product_name,
+	p.category,
+	SUM(s.total_price) AS total_sales_amount
+FROM Products p 
+	JOIN Sales s ON p.product_id = s.product_id
+	GROUP BY p.product_name, p.category;
+
+SELECT * FROM Total_Sales ORDER BY total_sales_amount DESC;
+
+-- 3. Retrieve the product details (name, category, unit price) for products that have a quantity sold greater than the average quantity sold across all products.
+SELECT product_name, category, unit_price FROM Products 
+WHERE product_id IN (
+		SELECT product_id FROM Sales GROUP BY product_id
+		HAVING SUM(quantity_sold) > (SELECT AVG(quantity_sold) FROM Sales)
+	);
+
+-- 4. Explain the significance of indexing in SQL databases and provide an example scenario where indexing could significantly improve query performance in the given schema.
+-- Create an index on the sales table
+CREATE INDEX idx_sales_date ON  Sales(sale_date)
+
+SELECT * FROM Sales WHERE sale_date = '2024-01-03';
+
+-- 5. Add a foreign key constraint to the Sales table that references the product_id column in the Products table.
+ALTER TABLE Sales ADD CONSTRAINT fk_product_id_key FOREIGN KEY (product_id) REFERENCES Products(product_id)
+
+
+
+
 
