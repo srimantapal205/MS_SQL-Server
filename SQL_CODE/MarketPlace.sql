@@ -278,7 +278,29 @@ SELECT * FROM Sales WHERE sale_date = '2024-01-03';
 -- 5. Add a foreign key constraint to the Sales table that references the product_id column in the Products table.
 ALTER TABLE Sales ADD CONSTRAINT fk_product_id_key FOREIGN KEY (product_id) REFERENCES Products(product_id)
 
+-- 6. Create a view named Top_Products that lists the top 3 products based on the total quantity sold.
+SELECT * FROM Products;
+SELECT * FROM Sales;
+
+CREATE VIEW Top_Products AS
+	SELECT TOP 3
+		p.product_name, 
+		SUM(s.quantity_sold) AS total_quantity_sold FROM Sales s 
+		JOIN Products p ON s.product_id = p.product_id 
+		GROUP BY p.product_name
+		ORDER BY total_quantity_sold DESC
+
+SELECT * FROM Top_Products
 
 
+-- 7. Implement a transaction that deducts the quantity sold from the Products table when a sale is made in the Sales table, ensuring that both operations are either committed or rolled back together.
 
+--8. Create a query that lists the product names along with their corresponding sales count.
+SELECT p.product_name, COUNT(s.sale_id) AS Sales_Count FROM Products p LEFT JOIN Sales s ON p.product_id = s.product_id GROUP BY p.product_name
+
+-- 9. Write a query to find all sales where the total price is greater than the average total price of all sales.
+SELECT * FROM Sales WHERE total_price > (SELECT AVG(total_price) FROM Sales)
+
+
+-- 10. Analyze the performance implications of indexing the sale_date column in the Sales table, considering the types of queries commonly executed against this column.
 
