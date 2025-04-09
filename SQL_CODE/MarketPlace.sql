@@ -301,6 +301,46 @@ SELECT p.product_name, COUNT(s.sale_id) AS Sales_Count FROM Products p LEFT JOIN
 -- 9. Write a query to find all sales where the total price is greater than the average total price of all sales.
 SELECT * FROM Sales WHERE total_price > (SELECT AVG(total_price) FROM Sales)
 
-
+--09-04-2024
+SELECT * FROM Sales;
+SELECT * FROM Products;
 -- 10. Analyze the performance implications of indexing the sale_date column in the Sales table, considering the types of queries commonly executed against this column.
+
+--Query without indexing
+EXPLAIN ANALYZE SELECT * FROM Sales WHERE sale_date = '2024-01-01';
+-- Query with indexing
+CREATE INDEX idx_sale_date ON Sales (sale_date);
+EXPLAIN ANALYZE SELECT * FROM Sales WHERE sale_date = '2024-01-01';
+
+-- 11. Add a check constraint to the quantity_sold column in the Sales table to ensure that the quantity sold is always greater than zero.
+ALTER TABLE Sales ADD CONSTRAINT chk_quentity_sold CHECK (quantity_sold > 0);
+
+-- QUERY To check if the constraint is applied successfully
+SELECT * FROM Sales;
+
+-- 12. Create a view named Product_Sales_Info that displays product details along with the total number of sales made for each product.
+CREATE VIEW Product_Sales_Info AS
+SELECT
+	p.product_id, p.product_name, p.category, p.unit_price, COUNT(s.sale_id) AS total_sales 
+FROM 
+	Products p
+LEFT JOIN 
+	Sales s ON p.product_id = s.product_id
+GROUP BY
+	p.product_id, p.product_name, p.category, p.unit_price;
+
+SELECT * FROM Product_Sales_Info;
+
+-- 15. Write a query that calculates the total revenue generated from each category of products for the year 2024.
+SELECT 
+	p.category,
+	SUM(s.total_price) AS total_revenue
+FROM
+	Sales s
+JOIN 
+	Products p ON s.product_id = p.product_id
+WHERE
+	FORMAT(s.sale_date, '%Y') = '2024'
+GROUP BY 
+	p.category;
 
