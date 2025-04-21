@@ -130,9 +130,8 @@ SELECT * FROM RankedSalary WHERE rnk = 3
 
 WITH cte AS (SELECT Employee.ID, Employee.Name, ROW_NUMBER() OVER(PARTITION BY Employee.ID, Employee.Name ORDER BY Employee.ID) AS row_num FROM Employee )
 SELECT * FROM cte Where row_num = 1;
-
-  
-SELECT ID, Name, Salary FROM cte WHERE row_num = 1;
+ 
+--SELECT ID, Name, Salary FROM cte WHERE row_num = 1;
 
 
 SELECT * FROM Employee ORDER BY ID OFFSET 8 ROWS FETCH NEXT 1 ROWS ONLY;
@@ -246,3 +245,30 @@ SELECT A.Col1 AS A_Col1, B.Col1 AS B_Col1 FROM A LEFT JOIN B ON A.Col1 = B.Col1;
 SELECT A.Col1 AS A_Col1, B.Col1 AS B_Col1 FROM A RIGHT JOIN B ON A.Col1 = B.Col1;
 
 SELECT A.Col1 AS A_Col1, B.Col1 AS B_Col1 FROM A FULL OUTER JOIN B ON A.Col1 = B.Col1;
+
+SELECT TOP 3  * FROM Employee ORDER BY Salary DESC;
+
+-- second_Highest_Salary
+SELECT  MAX(Salary) AS second_Highest_Salary FROM Employee WHERE Salary < (SELECT MAX(Salary) FROM Employee); 
+
+-- Third_Highest_Salary
+SELECT  
+	MAX(Salary) AS Third_Highest_Salary 
+FROM 
+	Employee 
+WHERE 
+	Salary < (
+		SELECT 
+			MAX(Salary) 
+		FROM 
+			Employee 
+		WHERE Salary < (
+			SELECT 
+			MAX(Salary) 
+		FROM 
+			Employee
+		)
+	); 
+
+
+SELECT  DISTINCT Salary  FROM Employee ORDER BY Salary DESC OFFSET 3 ROWS FETCH NEXT 1 ROWS ONLY;
