@@ -272,3 +272,22 @@ WHERE
 
 
 SELECT  DISTINCT Salary  FROM Employee ORDER BY Salary DESC OFFSET 3 ROWS FETCH NEXT 1 ROWS ONLY;
+
+SELECT DISTINCT Salary FROM Employee e1 WHERE(SELECT COUNT(DISTINCT Salary)FROM Employee e2 WHERE e2.Salary > e1.Salary) = 0;
+
+SELECT DISTINCT Salary FROM Employee ORDER BY Salary DESC OFFSET 0 ROWS FETCH NEXT 1 ROW ONLY;
+
+SELECT MAX(Salary) FROM Employee;
+
+SELECT DISTINCT Salary FROM Employee e1 WHERE ( SELECT COUNT(DISTINCT Salary) FROM Employee e2 WHERE e2.Salary > e1.Salary) =  0;
+SELECT DISTINCT Salary FROM Employee e1 WHERE ( SELECT COUNT(DISTINCT Salary) FROM Employee e2 WHERE e2.Salary > e1.Salary) = 2;
+
+SELECT * FROM Employee WHERE Salary = ( SELECT MAX(Salary) FROM Employee);
+
+--Write a SQL query to find employees with salaries greater than the department average.
+SELECT e.* FROM Employee e JOIN(SELECT DepartmentID, AVG(Salary) AS AVG_Salary FROM Employee GROUP BY DepartmentID) d ON e.DepartmentID = d.DepartmentID WHERE e.Salary>d.AVG_Salary ORDER BY Salary DESC;
+
+SELECT Name, COUNT(*) FROM Employee GROUP BY Name HAVING COUNT(*) >1; 
+
+-- Write a SQL query to calculate the cumulative sum of a column.
+SELECT Id, Salary, SUM(Salary) OVER(ORDER BY Id) AS cumulative_salary FROM Employee 
