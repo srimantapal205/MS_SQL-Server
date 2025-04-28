@@ -306,6 +306,13 @@ SELECT Salary FROM RankedSalaries WHERE rnk = 2
 WITH DeptAvg AS(SELECT DepartmentID, AVG(Salary) AS Avg_Salary FROM Employee GROUP BY DepartmentID) 
 SELECT DepartmentID, Avg_Salary  FROM DeptAvg;
 
+-- 5. Find Employees Hired Last 3 Employees
+SELECT * FROM Employee;
+
+-- 6. Duplicate Rows
+SELECT LOWER([Name]) Lower_Name, COUNT(*) AS Duplicate_Name FROM Employee GROUP BY LOWER([Name]) HAVING COUNT(*) >1
+
+-- 7. Identify Gaps in ID Sequence
 
 
 
