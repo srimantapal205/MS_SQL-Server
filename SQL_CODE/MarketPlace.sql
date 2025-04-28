@@ -344,3 +344,11 @@ WHERE
 GROUP BY 
 	p.category;
 
+-- 2. Customers Who Never Ordered
+USE [MARKETPLACEDB]
+GO
+SELECT * FROM [Sales].[Customer]
+SELECT * FROM [Sales].[Product]
+SELECT * FROM [Sales].[Transactions]
+
+SELECT  (C.FristName +' '+ C.LastName) AS FullName FROM [Sales].[Customer] AS C LEFT JOIN [Sales].[Transactions] T ON C.CustomerId = T.Customer_ID WHERE T.Customer_ID IS NULL;

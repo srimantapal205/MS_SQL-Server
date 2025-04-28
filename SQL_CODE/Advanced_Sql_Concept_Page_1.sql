@@ -291,3 +291,21 @@ SELECT Name, COUNT(*) FROM Employee GROUP BY Name HAVING COUNT(*) >1;
 
 -- Write a SQL query to calculate the cumulative sum of a column.
 SELECT Id, Salary, SUM(Salary) OVER(ORDER BY Id) AS cumulative_salary FROM Employee 
+
+
+-- Write a query to find the second highest salary.
+SELECT MAX(Salary) AS Second_Heighest FROM Employee WHERE Salary < (SELECT MAX(Salary) FROM Employee);
+
+-- Using dense_rank()
+WITH RankedSalaries AS(
+	SELECT Salary, DENSE_RANK() OVER (ORDER BY Salary DESC) AS rnk FROM Employee 
+)
+SELECT Salary FROM RankedSalaries WHERE rnk = 2
+
+-- 3. Department with Highest Average Salary
+WITH DeptAvg AS(SELECT DepartmentID, AVG(Salary) AS Avg_Salary FROM Employee GROUP BY DepartmentID) 
+SELECT DepartmentID, Avg_Salary  FROM DeptAvg;
+
+
+
+
