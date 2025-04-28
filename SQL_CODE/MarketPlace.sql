@@ -352,3 +352,6 @@ SELECT * FROM [Sales].[Product]
 SELECT * FROM [Sales].[Transactions]
 
 SELECT  (C.FristName +' '+ C.LastName) AS FullName FROM [Sales].[Customer] AS C LEFT JOIN [Sales].[Transactions] T ON C.CustomerId = T.Customer_ID WHERE T.Customer_ID IS NULL;
+
+-- 4. Running Total (Cumulative Sum)
+SELECT TransactionDate, SUM(TotalAmount) OVER(ORDER BY TransactionDate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS Running_Tortal FROM [Sales].[Transactions]
