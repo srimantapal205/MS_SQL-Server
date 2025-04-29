@@ -356,3 +356,7 @@ SELECT  (C.FristName +' '+ C.LastName) AS FullName FROM [Sales].[Customer] AS C 
 -- 4. Running Total (Cumulative Sum)
 SELECT TransactionDate, SUM(TotalAmount) OVER(ORDER BY TransactionDate ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS Running_Tortal FROM [Sales].[Transactions]
 
+-- 9. Pivot Table (Manual)
+--SELECT TransactionDate, SUM(CASE WHEN ProductName ="") FROM [Sales].[Transactions]
+
+

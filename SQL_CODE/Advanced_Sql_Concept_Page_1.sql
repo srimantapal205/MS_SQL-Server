@@ -313,6 +313,8 @@ SELECT * FROM Employee;
 SELECT LOWER([Name]) Lower_Name, COUNT(*) AS Duplicate_Name FROM Employee GROUP BY LOWER([Name]) HAVING COUNT(*) >1
 
 -- 7. Identify Gaps in ID Sequence
+SELECT e1.id + 1 AS missing_id FROM Employee e1 LEFT JOIN Employee e2 ON e1.ID = e2.ID WHERE e2.ID IS NULL;
 
-
+--10. Find Employees with Higher Salary Than Their Manager
+SELECT e.Name FROM Employee e JOIN Department d ON e.DepartmentID = d.ID WHERE e.Salary > (SELECT AVG(Salary) FROM Employee) 
 
