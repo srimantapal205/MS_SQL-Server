@@ -111,6 +111,7 @@ SELECT * FROM test_example_job_table
 INTERSECT SELECT * FROM test_example_table;
 
 SELECT * FROM Employee WHERE Salary= (SELECT MAX(Salary) FROM Employee) 
+SELECT * FROM Employee ORDER BY  Salary DESC
 /*
 7. Give SQL query to retrive nth record from an employee table.
 
@@ -248,6 +249,8 @@ SELECT A.Col1 AS A_Col1, B.Col1 AS B_Col1 FROM A FULL OUTER JOIN B ON A.Col1 = B
 
 SELECT TOP 3  * FROM Employee ORDER BY Salary DESC;
 
+
+
 -- second_Highest_Salary
 SELECT  MAX(Salary) AS second_Highest_Salary FROM Employee WHERE Salary < (SELECT MAX(Salary) FROM Employee); 
 
@@ -262,12 +265,13 @@ WHERE
 			MAX(Salary) 
 		FROM 
 			Employee 
-		WHERE Salary < (
-			SELECT 
-			MAX(Salary) 
-		FROM 
-			Employee
-		)
+		WHERE 
+			Salary < (
+				SELECT 
+					MAX(Salary) 
+				FROM 
+					Employee
+			)
 	); 
 
 
@@ -317,4 +321,10 @@ SELECT e1.id + 1 AS missing_id FROM Employee e1 LEFT JOIN Employee e2 ON e1.ID =
 
 --10. Find Employees with Higher Salary Than Their Manager
 SELECT e.Name FROM Employee e JOIN Department d ON e.DepartmentID = d.ID WHERE e.Salary > (SELECT AVG(Salary) FROM Employee) 
+
+SELECT * FROM Employee ORDER BY Salary DESC OFFSET 1 ROWS FETCH NEXT 2 ROW ONLY;
+
+ SELECT * FROM Employee WHERE Salary = (SELECT MAX(Salary) AS Second_Heighest FROM Employee WHERE Salary < (SELECT MAX(Salary) FROM Employee))
+
+  SELECT * FROM Employee WHERE Salary = (SELECT MAX(Salary) FROM Employee)
 
