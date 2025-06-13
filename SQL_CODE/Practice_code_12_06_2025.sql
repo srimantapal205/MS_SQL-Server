@@ -80,10 +80,16 @@ SELECT * FROM Departments WHERE  Budget >( SELECT AVG(Budget) FROM Departments);
 -- 2.14 Select the names of departments with more than two employees.
 SELECT Department, COUNT(*) NO_Employe FROM Employees INNER JOIN Departments ON Department = Code  GROUP BY Department, Code HAVING COUNT(*) >2 ; 
 -- 2.15 Very Important - Select the name and last name of employees working for departments with second lowest budget.
+SELECT e.Name, LastName, Department FROM Employees e INNER JOIN Departments d ON e.Department = d.Code WHERE d.Budget = (SELECT MIN(Budget) FROM Departments WHERE Budget > (SELECT MIN(Budget) FROM Departments) );
+
+WITH CombineTable AS ( SELECT d.Code, e.Name,e.LastName,d.Name AS Department, d.Budget  FROM Employees e INNER JOIN Departments d ON e.Department = d.Code)
+SELECT * FROM CombineTable c WHERE  c.Budget = (SELECT MIN(Budget) FROM CombineTable WHERE Budget > (SELECT MIN(Budget) FROM CombineTable));
+
 
 -- 2.16  Add a new department called "Quality Assurance", with a budget of $40,000 and departmental code 11. 
 -- And Add an employee called "Mary Moore" in that department, with SSN 847-21-9811.
-
+INSERT INTO Departments(Code,Name,Budget) VALUES(11,'Quality Assurance',40000);
+INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('847219811','Mary','Moore',11);
 -- 2.17 Reduce the budget of all departments by 10%.
 
 -- 2.18 Reassign all employees from the Research department (code 77) to the IT department (code 14).
