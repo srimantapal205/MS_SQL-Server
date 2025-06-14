@@ -90,12 +90,22 @@ SELECT * FROM CombineTable c WHERE  c.Budget = (SELECT MIN(Budget) FROM CombineT
 -- And Add an employee called "Mary Moore" in that department, with SSN 847-21-9811.
 INSERT INTO Departments(Code,Name,Budget) VALUES(11,'Quality Assurance',40000);
 INSERT INTO Employees(SSN,Name,LastName,Department) VALUES('847219811','Mary','Moore',11);
+
 -- 2.17 Reduce the budget of all departments by 10%.
+SELECT * FROM Employees;
+UPDATE Departments SET Budget = 0.9 * Budget;
+SELECT * FROM Departments;
 
 -- 2.18 Reassign all employees from the Research department (code 77) to the IT department (code 14).
+UPDATE Employees SET Department = 11 WHERE Department = 77
 
 -- 2.19 Delete from the table all employees in the IT department (code 14).
+DELETE  FROM Employees WHERE Department = 14;
 
 -- 2.20 Delete from the table all employees who work in departments with a budget greater than or equal to $60,000.
-
+SELECT * FROM Employees e INNER JOIN Departments d ON e.Department = d.Code WHERE d.Budget >= 60000;
+SELECT * FROM Employees;
+DELETE FROM Employees WHERE Department = (SELECT Code FROM Departments WHERE Budget >=60000)
+SELECT * FROM Employees;
 -- 2.21 Delete from the table all employees.
+TRUNCATE TABLE Employees;
