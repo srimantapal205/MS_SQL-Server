@@ -51,9 +51,12 @@ SELECT AVG(Value) AS AVG_VALUE FROM Boxes
 
 --3.5 Select the warehouse code and the average value of the boxes in each warehouse.
 SELECT Warehouse, AVG(Value) AS AVg_Value_By_Warehouse FROM Boxes GROUP BY Warehouse 
+
 --3.6 Same as previous exercise, but select only those warehouses where the average value of the boxes is greater than 150.
+SELECT Warehouse, AVG(Value) AS AVg_Value_By_Warehouse  FROM Boxes GROUP BY Warehouse  HAVING AVG(Value) > 150 
 
 --3.7 Select the code of each box, along with the name of the city the box is located in.
+
 
 --3.8 Select the warehouse codes, along with the number of boxes in each warehouse. 
     -- Optionally, take into account that some warehouses are empty (i.e., the box count should show up as zero, instead of omitting the warehouse from the result).
