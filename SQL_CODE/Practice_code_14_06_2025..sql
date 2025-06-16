@@ -87,18 +87,38 @@ DELETE FROM  Boxes WHERE Value <100;
 SELECT * FROM  Boxes;
 
 -- 3.15 Remove all boxes from saturated warehouses.
-
+DELETE  FROM Boxes WHERE Warehouse IN (SELECT Code FROM Warehouses WHERE Capacity < (SELECT COUNT(*) FROM Boxes WHERE Warehouse = Warehouses.Code));
 
 -- 3.16 Add Index for column "Warehouse" in table "boxes"
     -- !!!NOTE!!!: index should NOT be used on small tables in practice
-
+CREATE INDEX INDEX_WAREHOUSE ON Boxes (Warehouse)
 
 
 -- 3.17 Print all the existing indexes
     -- !!!NOTE!!!: index should NOT be used on small tables in practice
+SELECT 
+    t.name AS TableName,
+    ind.name AS IndexName,
+    ind.type_desc AS IndexType,
+    col.name AS ColumnName,
+    ind.is_unique AS IsUnique,
+    ind.is_primary_key AS IsPrimaryKey
+FROM 
+    sys.indexes ind
+INNER JOIN 
+    sys.index_columns ic ON ind.object_id = ic.object_id AND ind.index_id = ic.index_id
+INNER JOIN 
+    sys.columns col ON ic.object_id = col.object_id AND ic.column_id = col.column_id
+INNER JOIN 
+    sys.tables t ON ind.object_id = t.object_id
+WHERE 
+    ind.is_primary_key = 0 -- optional: exclude primary key indexes
+    AND t.is_ms_shipped = 0 -- exclude system tables
+ORDER BY 
+    t.name, ind.name, ic.key_ordinal;
 
 
 -- 3.18 Remove (drop) the index you added just
     -- !!!NOTE!!!: index should NOT be used on small tables in practice
 
-
+DROP INDEX INDEX_WAREHOUSE;
