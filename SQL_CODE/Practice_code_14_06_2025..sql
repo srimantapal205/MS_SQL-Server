@@ -56,29 +56,35 @@ SELECT Warehouse, AVG(Value) AS AVg_Value_By_Warehouse FROM Boxes GROUP BY Wareh
 SELECT Warehouse, AVG(Value) AS AVg_Value_By_Warehouse  FROM Boxes GROUP BY Warehouse  HAVING AVG(Value) > 150 
 
 --3.7 Select the code of each box, along with the name of the city the box is located in.
-SELECT * FROM Boxes;
+SELECT b.Code, w.Location FROM Boxes b INNER JOIN Warehouses w ON b.Warehouse = w.Code;
 
 --3.8 Select the warehouse codes, along with the number of boxes in each warehouse. 
     -- Optionally, take into account that some warehouses are empty (i.e., the box count should show up as zero, instead of omitting the warehouse from the result).
+SELECT Warehouse, COUNT(*) AS number_boxes_each_warehouse FROM Boxes GROUP BY Warehouse;
 
+SELECT w.Code, SUM(b.Value) AS TotalNumberOfBoxesValue FROM Boxes b INNER JOIN Warehouses w ON b.Warehouse = w.Code GROUP BY w.Code, b.Warehouse;
 
 --3.9 Select the codes of all warehouses that are saturated (a warehouse is saturated if the number of boxes in it is larger than the warehouse's capacity).
-
+SELECT Code FROM Warehouses WHERE Capacity < (SELECT COUNT(*) FROM Boxes WHERE Warehouse = Warehouses.Code)
 
 --3.10 Select the codes of all the boxes located in Chicago.
-
+SELECT b.Code, b.Contents, b.Value, w.Code AS Warehouse_Code, w.Location, w.Capacity FROM  Boxes b INNER JOIN Warehouses w ON b.Warehouse = w.Code WHERE w.Location ='Chicago';
 
 --3.11 Create a new warehouse in New York with a capacity for 3 boxes.
-
+INSERT INTO Warehouses VALUES(6, 'New York', 3)
 
 --3.12 Create a new box, with code "H5RT", containing "Papers" with a value of $200, and located in warehouse 2.
-
+INSERT INTO Boxes VALUES('H5RT','Papers',200,2)
 
 --3.13 Reduce the value of all boxes by 15%.
-
+SELECT * FROM  Boxes;
+UPDATE Boxes SET Value = Value * 0.85;
+SELECT * FROM  Boxes;
 
 --3.14 Remove all boxes with a value lower than $100.
+DELETE FROM  Boxes WHERE Value <100; 
 
+SELECT * FROM  Boxes;
 
 -- 3.15 Remove all boxes from saturated warehouses.
 
