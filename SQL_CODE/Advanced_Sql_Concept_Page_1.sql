@@ -326,5 +326,6 @@ SELECT * FROM Employee ORDER BY Salary DESC OFFSET 1 ROWS FETCH NEXT 2 ROW ONLY;
 
  SELECT * FROM Employee WHERE Salary = (SELECT MAX(Salary) AS Second_Heighest FROM Employee WHERE Salary < (SELECT MAX(Salary) FROM Employee))
 
-  SELECT * FROM Employee WHERE Salary = (SELECT MAX(Salary) FROM Employee)
+ SELECT * FROM Employee WHERE Salary = (SELECT MAX(Salary) FROM Employee)
 
+  SELECT * FROM Employee WHERE Salary  = (SELECT MAX(Salary) FROM Employee WHERE Salary < (SELECT MAX(Salary) FROM Employee  WHERE Salary < (SELECT MAX(Salary) FROM Employee)))

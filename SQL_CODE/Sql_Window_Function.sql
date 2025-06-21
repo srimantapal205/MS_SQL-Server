@@ -199,3 +199,7 @@ SELECT
 	deptname, 
 	MAX(salary) AS Max_Salary 
 FROM CombineTable GROUP BY deptname
+
+
+
+
