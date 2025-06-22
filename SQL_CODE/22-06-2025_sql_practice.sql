@@ -40,6 +40,23 @@ INSERT INTO employees_table (employee_id, first_name, last_name, dept_id, manage
 (11, 'Jessica', 'Taylor', 4, 10),
 (12, 'Matthew', 'Thomas', 4, 10);
 
+SELECT * FROM employees_table;
+SELECT * FROM departments_table;
+
+--Write a SQL query to retrieve employee details along with their department and manager information from three tables: employees, departments, and employees (self-join for manager).
+
+SELECT 
+	et1.employee_id, 
+	et1.first_name +' '+et1.last_name AS employee_name, 
+	d.department_name,
+	COALESCE(m.first_name +' '+m.last_name, 'N/A') AS manager_name
+FROM 
+	employees_table et1
+INNER JOIN
+	departments_table d ON et1.dept_id = d.dept_id
+LEFT JOIN
+	employees_table m ON et1.employee_id = m.employee_id;
+
 
 
 -- 2. Grouping and Aggregation:
