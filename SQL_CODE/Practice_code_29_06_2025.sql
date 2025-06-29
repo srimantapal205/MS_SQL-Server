@@ -1,6 +1,7 @@
 -- https://en.wikibooks.org/wiki/SQL_Exercises/Movie_theatres
 USE sql_exercise
-GO
+GO;
+
 CREATE TABLE Movies (
   Code INTEGER PRIMARY KEY,
   Title VARCHAR(255) NOT NULL,
