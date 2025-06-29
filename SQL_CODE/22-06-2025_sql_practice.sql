@@ -88,8 +88,8 @@ INSERT INTO item_orders (order_id, product_category, order_amount) VALUES
 (18, 'Clothing', 500),
 (19, 'Books', 300),
 (20, 'Electronics', 1200);
-
-
+-- Calculate the total sales revenue for each product category, including the number of orders and average order value, from a sales database.
+SELECT * FROM 
 CREATE TABLE interactions (
     interaction_id INT PRIMARY KEY,
     post_id INT,
