@@ -67,6 +67,7 @@ SELECT * FROM Provides WHERE Piece = 1;
 
 -- 5.5 Select the name of pieces provided by provider with code "HAL".
 SELECT * FROM Provides WHERE Provider = 'HAL';
+SELECT Name FROM Pieces WHERE Code in (SELECT Piece FROM Provides WHERE Provider = 'HAL' )
 -- 5.6
 -- ---------------------------------------------
 -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -75,13 +76,16 @@ SELECT * FROM Provides WHERE Provider = 'HAL';
 -- (note that there could be two providers who supply the same piece at the most expensive price).
 -- ---------------------------------------------
 
+SELECT a.Name, c.Name, b.Price FROM Pieces a INNER JOIN  Provides b ON a.Code = b.Piece INNER JOIN Providers c ON b.Provider = c.Code   WHERE Price = (SELECT MAX(Price) FROM Provides WHERE Piece = Pieces.Code)
+
+
 
 -- 5.7 Add an entry to the database to indicate that "Skellington Supplies" (code "TNBC") will provide sprockets (code "1") for 7 cents each.
-
+INSERT INTO Provides(Piece, Provider, Price) VALUES (1, 'TNBC', 7);
 -- 5.8 Increase all prices by one cent.
-
+UPDATE Provides SET Price = Price + 1
 -- 5.9 Update the database to reflect that "Susan Calvin Corp." (code "RBT") will not supply bolts (code 4).
-
+DELETE FROM Provides WHERE Provider = 'RBT' AND Piece = 4 
 -- 5.10 Update the database to reflect that "Susan Calvin Corp." (code "RBT") will not supply any pieces 
     -- (the provider should still remain in the database).
-
+DELETE FROM Provides WHERE Provider = 'RBT'
