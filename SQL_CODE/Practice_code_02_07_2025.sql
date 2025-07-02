@@ -94,4 +94,15 @@ ORDER BY
 	P.Name, S.Name
 
 -- 6.2 Select the project names which are not assigned yet
-SELECT * FROM Projects WHERE Code NOT IN  (SELECT Project FROM AssignedTo)
+SELECT 
+	* 
+FROM 
+	Projects 
+WHERE 
+	Code 
+NOT IN  (
+	SELECT 
+		Project 
+	FROM 
+		AssignedTo
+	)
