@@ -201,5 +201,13 @@ SELECT
 FROM CombineTable GROUP BY deptname
 
 
+/*
+Nth_VALUE() WINDOW FUNCTION:
+The NTH_VALUE() window function allows you to retrieve the value from a specific row, based on its position, within a window or partition. It is useful when you need to access not just the first or last value, but any specific row in the dataset.
 
+*/
 
+SELECT employee_id, name, sales,
+NTH_VALUE(sales, 3) OVER (ORDER BY sales DESC
+ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS third_highest_sale
+FROM sales_data
