@@ -211,3 +211,26 @@ SELECT employee_id, name, sales,
 NTH_VALUE(sales, 3) OVER (ORDER BY sales DESC
 ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS third_highest_sale
 FROM sales_data
+
+
+-- Remove the duplicate Value
+WITH removeDuplicate AS (
+SELECT * , ROW_NUMBER() OVER(PARTITION BY NAME ORDER BY ID) AS rn FROM Employee
+)
+DELETE FROM remveDuplicate WHERE rn>1
+
+
+# Define window partition
+window_spec = Window.partitionBy("id").orderBy(df["timestamp_column"].desc())
+
+# Add row number
+df_with_row = df.withColumn("row_num", row_number().over(window_spec))
+
+# Keep only first row (latest record per id)
+latest_df = df_with_row.filter("row_num = 1").drop("row_num")
+
+
+
+window_spec = Window.partitionBy("id").orderBy(df["last_updated"].desc())
+df = df.withColumn("row_num", row_number().over(window_spec))
+df = df.filter("row_num = 1").drop("row_num")
