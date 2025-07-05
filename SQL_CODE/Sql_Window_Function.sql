@@ -212,6 +212,11 @@ NTH_VALUE(sales, 3) OVER (ORDER BY sales DESC
 ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS third_highest_sale
 FROM sales_data
 
+-- get Duplicate Value
+SELECT column1, column2, COUNT(*)
+FROM table_name
+GROUP BY column1, column2
+HAVING COUNT(*) > 1;
 
 -- Remove the duplicate Value
 WITH removeDuplicate AS (
@@ -234,3 +239,4 @@ latest_df = df_with_row.filter("row_num = 1").drop("row_num")
 window_spec = Window.partitionBy("id").orderBy(df["last_updated"].desc())
 df = df.withColumn("row_num", row_number().over(window_spec))
 df = df.filter("row_num = 1").drop("row_num")
+
