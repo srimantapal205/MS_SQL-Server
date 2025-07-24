@@ -213,10 +213,10 @@ ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS third_highest_sale
 FROM sales_data
 
 -- get Duplicate Value
-SELECT column1, column2, COUNT(*)
+/*SELECT column1, column2, COUNT(*)
 FROM table_name
 GROUP BY column1, column2
-HAVING COUNT(*) > 1;
+HAVING COUNT(*) > 1;*/
 
 -- Remove the duplicate Value
 WITH removeDuplicate AS (
@@ -224,7 +224,7 @@ SELECT * , ROW_NUMBER() OVER(PARTITION BY NAME ORDER BY ID) AS rn FROM Employee
 )
 DELETE FROM remveDuplicate WHERE rn>1
 
-
+/*
 # Define window partition
 window_spec = Window.partitionBy("id").orderBy(df["timestamp_column"].desc())
 
@@ -240,3 +240,79 @@ window_spec = Window.partitionBy("id").orderBy(df["last_updated"].desc())
 df = df.withColumn("row_num", row_number().over(window_spec))
 df = df.filter("row_num = 1").drop("row_num")
 
+
+USE [sql_exercise]
+GO
+
+SELECT * FROM Employee
+SELECT * FROM Employees
+SELECT * FROM employees_table
+*/
+
+SELECT * FROM Employee
+
+SELECT 
+	ID, 
+	Name, 
+	Salary,
+	AVG(Salary) OVER(PARTITION BY DepartmentID) AS AVG_Salay_Dept_Wise
+FROM 
+	Employee
+
+
+SELECT 
+	ID,
+	Name,
+	Salary,
+	MIN(Salary) OVER(PARTITION BY DepartmentID) AS Min_Salary_By_dept_wise,
+	MAX(Salary) OVER(PARTITION BY DepartmentID) AS Max_Salary_By_depet_Wise
+FROM
+	Employee
+
+SELECT 
+	ID,
+	Name,
+	Salary,
+	DepartmentID,
+	AVG(Salary) OVER(PARTITION BY DepartmentID) AS AVG_Salay_Dept_Wise,
+	MIN(Salary) OVER(PARTITION BY DepartmentID) AS Min_Salary_By_dept_wise,
+	MAX(Salary) OVER(PARTITION BY DepartmentID) AS Max_Salary_By_depet_Wise
+FROM
+	Employee 
+
+SELECT COUNT(*) FROM Employee;
+SELECT DISTINCT( DepartmentID), COUNT(*) OVER(PARTITION BY DepartmentID) AS Depart_Wise_Emp  FROM Employee;
+
+
+SELECT 
+	ID, 
+	Name, 
+	DepartmentID, 
+	Salary, 
+ROW_NUMBER() OVER(PARTITION BY DepartmentID ORDER BY Salary) AS RowNumber FROM Employee
+
+
+SELECT 
+	ID, 
+	DepartmentID, 
+	Salary, 
+	RANK() OVER(PARTITION BY DepartmentID ORDER BY Salary ) AS Rank_No_RANK,
+	DENSE_RANK() OVER(PARTITION BY DepartmentID ORDER BY Salary) AS Rank_No_DenseRank
+FROM 
+	Employee
+
+
+USE sql_exercise
+GO
+
+SELECT * FROM Employees
+SELECT * FROM employee_salaries
+SELECT * FROM employees_table
+
+
+
+
+
+
+
+SELECT DISTINCT(Name) FROM Employee
