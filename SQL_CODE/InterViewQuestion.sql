@@ -22,7 +22,8 @@ WITH Journy AS (
 		ROW_NUMBER() OVER(PARTITION BY ID ORDER BY FlightName) AS sur_num,
 		ROW_NUMBER() OVER(PARTITION BY ID ORDER BY FlightName DESC) dest_num
 	From Flights
-),
+)
+--SELECT * FROM Journy;
 Start_Journy AS (
 	SELECT ID, FlightName, Source, sur_num FROM Journy WHERE sur_num = 1
 ),
