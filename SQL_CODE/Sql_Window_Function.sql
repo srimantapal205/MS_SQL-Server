@@ -342,4 +342,30 @@ VALUES
 SELECT * FROM EmployeeSalary;
 
 
+SELECT 
+	SalaryMonth, 
+	Salary,
+	LAG(Salary) OVER(ORDER BY SalaryMonth) AS Previous_Month_Salary, -- LAG() function allows you to get the data from the following Previous row 
+	LEAD(Salary) OVER(ORDER BY SalaryMonth) AS Next_Month_Salary -- LEAD() function allows you to get the data from the following next row  
+FROM 
+	EmployeeSalary
+
+
+
+SELECT 
+	EmployeeID, 
+	(FirstName + ' ' + LastName ) AS EmployeeName, 
+	Salary,
+	FIRST_VALUE(Salary) OVER (ORDER BY Salary DESC) AS Highest_Salary
+FROM 
+	EmployeeSalary
+
+SELECT 
+	EmployeeID, 
+	(FirstName + ' ' + LastName ) AS EmployeeName, 
+	Salary,
+	FIRST_VALUE(Salary) OVER (ORDER BY Salary DESC) AS Highest_Salary,
+	LAST_VALUE (Salary) OVER (ORDER BY Salary DESC ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS Last_Salary
+FROM 
+	EmployeeSalary
 
