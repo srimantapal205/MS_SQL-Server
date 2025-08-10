@@ -310,9 +310,36 @@ SELECT * FROM employee_salaries
 SELECT * FROM employees_table
 
 
-
-
-
-
-
 SELECT DISTINCT(Name) FROM Employee
+
+
+CREATE TABLE EmployeeSalary (
+    EmployeeID INT PRIMARY KEY IDENTITY(1,1),         -- Unique ID for each employee
+    FirstName NVARCHAR(50) NOT NULL,                  -- Employee first name
+    LastName NVARCHAR(50) NOT NULL,                   -- Employee last name
+    Department NVARCHAR(50) NOT NULL,                 -- Department name
+    Designation NVARCHAR(50) NOT NULL,                 -- Role/Title
+    Salary DECIMAL(10, 2) NOT NULL,                   -- Monthly salary
+    Bonus DECIMAL(10, 2) NULL,                        -- Optional bonus
+    SalaryMonth DATE NOT NULL,                        -- Salary payment month (1st of month)
+    PaymentDate DATETIME NOT NULL DEFAULT GETDATE(),  -- Actual payment date/time
+    Status NVARCHAR(20) NOT NULL CHECK (Status IN ('Paid', 'Pending', 'On Hold')) -- Payment status
+);
+
+
+INSERT INTO EmployeeSalary (FirstName, LastName, Department, Designation, Salary, Bonus, SalaryMonth, PaymentDate, Status)
+VALUES
+('John', 'Doe', 'IT', 'Software Engineer', 70000, 5000, '2025-01-01', '2025-01-05', 'Paid'),
+('Jane', 'Smith', 'HR', 'HR Manager', 65000, NULL, '2025-01-01', '2025-01-06', 'Paid'),
+('Michael', 'Brown', 'Finance', 'Accountant', 55000, 3000, '2025-02-01', '2025-02-05', 'Paid'),
+('Emma', 'Wilson', 'IT', 'Data Engineer', 80000, 10000, '2025-02-01', '2025-02-04', 'Paid'),
+('Liam', 'Taylor', 'Sales', 'Sales Executive', 45000, 2000, '2025-02-01', '2025-02-07', 'Pending'),
+('Sophia', 'Johnson', 'Finance', 'Financial Analyst', 60000, NULL, '2025-03-01', '2025-03-05', 'Paid'),
+('Noah', 'Anderson', 'IT', 'DevOps Engineer', 75000, 8000, '2025-03-01', '2025-03-06', 'On Hold'),
+('Olivia', 'Thomas', 'Sales', 'Sales Manager', 90000, 12000, '2025-03-01', '2025-03-05', 'Paid');
+
+
+SELECT * FROM EmployeeSalary;
+
+
+
