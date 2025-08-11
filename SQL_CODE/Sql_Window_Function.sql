@@ -369,3 +369,36 @@ SELECT
 FROM 
 	EmployeeSalary
 
+SELECT 
+	EmployeeID,
+	(FirstName + ' ' + LastName ) AS EmployeeName,
+	Department,
+	Salary, 
+	MAX(Salary) OVER(PARTITION BY Department ORDER BY Department ASC ) AS Dept_By_High_Sal
+FROM 
+	EmployeeSalary;
+
+
+WITH DisplyOnlyHighestSalaryEmploye AS (
+	SELECT 
+		EmployeeID,
+		(FirstName + ' ' + LastName ) AS EmployeeName,
+		Department,
+		Salary, 
+		MAX(Salary) OVER(PARTITION BY Department ORDER BY Department ASC ) AS Dept_By_High_Sal
+	FROM 
+		EmployeeSalary
+	)
+SELECT * FROM DisplyOnlyHighestSalaryEmploye WHERE Salary = Dept_By_High_Sal
+
+SELECT * FROM Employee;
+WITH  ThirdHighSalary AS(
+	SELECT 
+		ID,
+		Name AS EmployeeName,
+		DepartmentID,
+		Salary,
+		DENSE_RANK() OVER (ORDER BY Salary DESC) AS Rank_Number
+	FROM Employee
+)
+SELECT * FROM ThirdHighSalary WHERE Rank_Number = 3
