@@ -38,11 +38,12 @@ Return the result table in any order.
 */
 SELECT E.EmplId, E.name AS Employee_Name, E.salary AS Employee_Salary, M.EmplId As Manager_ID, M.name AS Manager_name, M.salary AS Manager_Salary FROM MangrEmployee E JOIN  MangrEmployee M ON E.MangrId = M.EmplId Where E.salary > M.salary
 
-
+-- Get Non Manager employee using CTE
 WITH 
 	ManagerTable AS (
 		SELECT DISTINCT m.EmplId as ManagerId, m.name, m.salary FROM MangrEmployee as m JOIN MangrEmployee e ON m.EmplId = e.MangrId
 	)
 SELECT * FROM MangrEmployee WHERE  EmplId NOT IN (SELECT ManagerId FROM ManagerTable)
 
+-- Count number of employee for each manger
 SELECT MangrId,  COUNT(*) Each_Manager_Employee FROM MangrEmployee GROUP BY MangrId;
