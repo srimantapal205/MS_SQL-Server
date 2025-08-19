@@ -35,5 +35,6 @@ Return the result table in any order.
 WITH RowNUmberEmailList AS (
 	SELECT *, ROW_NUMBER() OVER(PARTITION BY email ORDER BY id) AS RowNunber FROM EmailList
 )
-SELECT DISTINCT email FROM RowNUmberEmailList WHERE RowNunber > 1;
---SELECT * FROM RowNUmberEmailList WHERE RowNunber > 1;
+-- SELECT DISTINCT email FROM RowNUmberEmailList WHERE RowNunber > 1; -- Get Duplicate distinct email
+-- SELECT * FROM RowNUmberEmailList WHERE RowNunber > 1; -- Get all duplicate value
+SELECT id, email FROM RowNUmberEmailList WHERE RowNunber = 1;
