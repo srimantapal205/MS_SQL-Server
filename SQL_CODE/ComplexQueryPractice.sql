@@ -74,3 +74,11 @@ SELECT * FROM dbo.customers;
 SELECT * FROM dbo.employees;
 SELECT * FROM dbo.order_items;
 SELECT * FROM dbo.orders;
+
+-- 1. Find the total revenue per customer.
+SELECT c.name AS CustomerName, SUM(o.total_amount) AS total_spent  FROM dbo.customers c JOIN dbo.orders o ON c.customer_id = o.customer_id GROUP BY c.name;
+
+-- 2. Find the top 2 customers by spending.
+SELECT TOP 2 c.name AS CustomerName, SUM(o.total_amount) AS total_spent FROM customers c JOIN orders o on c.customer_id = o.customer_id GROUP BY c.name ORDER BY total_spent DESC;
+
+
