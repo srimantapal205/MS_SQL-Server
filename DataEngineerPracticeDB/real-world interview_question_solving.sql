@@ -122,3 +122,28 @@ GROUP BY
 ORDER BY
 	QuaterlyCount, Quarterly;
 
+----------------------------------------------------------------------------------
+-- 16. Find cumulative sales per customer
+SELECT 
+	*
+FROM
+	Orders;
+SELECT 
+	CustomerID,
+	OrderDate,
+	SUM(TotalAmount) OVER (PARTITION BY CustomerID ORDER BY OrderDate) AS CumulativeSales
+FROM
+	Orders;
+
+-- 17. Rank top customers by sales
+SELECT 
+	CustomerID,
+	SUM(TotalAmount) AS TotalSales,
+	RANK() OVER(ORDER BY SUM(TotalAmount) DESC) AS SalesRank
+FROM
+	Orders
+GROUP BY
+	CustomerID;
+
+
+-- 18. Get month-over-month sales growth
