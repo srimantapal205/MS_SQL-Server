@@ -49,11 +49,76 @@ SELECT Email, COUNT(Email) AS Email_count FROM Employees GROUP BY  Email HAVING 
 
 
 
+-------------------------------------------
+SELECT * FROM MuseumVisits;
+/*
+ExhibitID INT,
+    ExhibitName VARCHAR(100),
+    VisitorID INT,
+    VisitDate DATE
+*/
+
+SELECT 
+	ExhibitID, 
+	ExhibitName,
+	COUNT(DISTINCT VisitorID) AS TotalVisitor 
+FROM 
+	MuseumVisits
+GROUP BY ExhibitID, ExhibitName
+ORDER BY TotalVisitor ASC
 
 
+SELECT 
+	ExhibitID, 
+	ExhibitName,
+	--COUNT(DISTINCT VisitorID) AS TotalVisitor,
+	VisitDate,
+	/*CASE
+		WHEN MONTH(VisitDate) BETWEEN 1 AND 3 THEN 'Q1'
+		WHEN MONTH(VisitDate) BETWEEN 4 AND 6 THEN 'Q2'
+		WHEN MONTH(VisitDate) BETWEEN 7 AND 9 THEN 'Q3'
+		WHEN MONTH(VisitDate) BETWEEN 10 AND 12 THEN 'Q4'
+	END AS Quarterly,*/
+	CONCAT('Q', DATEPART(QUARTER, VisitDate), '-', YEAR(VisitDate)) AS QuarterlyYear,
+	CONCAT('Q', DATEPART(QUARTER, VisitDate)) AS Quarterly
 
+FROM 
+	MuseumVisits
+--GROUP BY ExhibitID, ExhibitName, Quarterly
+--ORDER BY TotalVisitor ASC
 
+WITH VisitorQuaterlyColumn AS (
+	SELECT *,
+		CONCAT('Q', DATEPART(QUARTER, VisitDate), '-', YEAR(VisitDate)) AS QuarterlyYear,
+		CONCAT('Q', DATEPART(QUARTER, VisitDate)) AS Quarterly,
+		YEAR(VisitDate) AS VisitYear
 
-
-
+	FROM 
+		MuseumVisits
+),
+VisitorCountColumn AS(
+	SELECT  
+		*,
+		COUNT(ExhibitID) OVER(PARTITION BY QuarterlyYear) AS QuaterlyCount
+	FROM 
+		VisitorQuaterlyColumn
+)
+SELECT 
+	ExhibitID, 
+	ExhibitName,
+	QuaterlyCount,
+	QuarterlyYear,
+	Quarterly,
+	VisitYear
+FROM VisitorCountColumn
+WHERE VisitYear = 2025 
+GROUP BY 
+	ExhibitID, 
+	ExhibitName,
+	QuaterlyCount,
+	QuarterlyYear,
+	Quarterly,
+	VisitYear
+ORDER BY
+	QuaterlyCount, Quarterly;
 

@@ -215,3 +215,68 @@ INSERT INTO DimCustomer (CustomerKey, CustomerName, StartDate, EndDate, IsCurren
 VALUES
 (1, 'John Doe', '2023-01-01', NULL, 1),
 (2, 'Mary Jane', '2023-01-01', NULL, 1);
+
+CREATE TABLE MuseumVisits (
+    ExhibitID INT,
+    ExhibitName VARCHAR(100),
+    VisitorID INT,
+    VisitDate DATE
+);
+
+INSERT INTO MuseumVisits VALUES
+(1, 'Dinosaur Fossils',   101, '2024-01-05'),
+(1, 'Dinosaur Fossils',   102, '2024-02-10'),
+(1, 'Dinosaur Fossils',   103, '2024-04-15'),
+(2, 'Ancient Egypt',      104, '2024-03-12'),
+(2, 'Ancient Egypt',      105, '2024-04-20'),
+(2, 'Ancient Egypt',      106, '2024-05-11'),
+(3, 'Space Exploration',  107, '2024-04-01'),
+(3, 'Space Exploration',  108, '2024-04-05'),
+(4, 'Modern Art Gallery', 109, '2023-12-25'),
+(4, 'Modern Art Gallery', 110, '2024-04-10'),
+(5, 'Marine Life',        111, '2024-04-12'),
+(5, 'Marine Life',        112, '2024-04-14'),
+(5, 'Marine Life',        113, '2024-06-02');
+
+
+INSERT INTO MuseumVisits (ExhibitID, ExhibitName, VisitorID, VisitDate) VALUES
+(1, 'Dinosaur Fossils', 101, '2025-01-05'),
+(1, 'Dinosaur Fossils', 102, '2025-01-10'),
+(1, 'Dinosaur Fossils', 103, '2025-03-15'),
+
+(2, 'Ancient Egypt', 201, '2025-01-12'),
+(2, 'Ancient Egypt', 202, '2025-02-20'),
+
+(3, 'Modern Art',    301, '2025-01-18'),
+
+(4, 'Space Exhibit', 401, '2024-12-25'),  -- previous quarter
+(4, 'Space Exhibit', 402, '2024-12-28'),
+
+(5, 'Marine Life',   501, '2025-02-05'),
+(5, 'Marine Life',   502, '2025-02-06'),
+(5, 'Marine Life',   503, '2025-02-10');
+
+INSERT INTO MuseumVisits (ExhibitID, ExhibitName, VisitorID, VisitDate) VALUES
+-- Q1 (Jan–Mar)
+(1, 'Dinosaur Fossils', 101, '2025-01-05'),
+(1, 'Dinosaur Fossils', 102, '2025-02-12'),
+(2, 'Ancient Egypt',    201, '2025-03-10'),
+(3, 'Modern Art',       301, '2025-03-15'),
+
+-- Q2 (Apr–Jun)
+(1, 'Dinosaur Fossils', 103, '2025-04-10'),
+(2, 'Ancient Egypt',    202, '2025-04-15'),
+(2, 'Ancient Egypt',    203, '2025-05-20'),
+(4, 'Space Exhibit',    401, '2025-06-25'),
+
+-- Q3 (Jul–Sep)
+(1, 'Dinosaur Fossils', 104, '2025-08-05'),
+(5, 'Marine Life',      501, '2025-08-15'),
+(5, 'Marine Life',      502, '2025-09-05'),
+
+-- Q4 (Oct–Dec) → This is “last quarter” if today is early 2025
+(1, 'Dinosaur Fossils', 105, '2024-10-10'),
+(2, 'Ancient Egypt',    204, '2024-11-20'),
+(5, 'Marine Life',      503, '2024-12-02'),
+(3, 'Modern Art',       302, '2024-12-12');
+
