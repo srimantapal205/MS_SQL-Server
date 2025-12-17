@@ -18,7 +18,10 @@ VALUES
 ('Chase Sapphire Reserve', 175000, 2, 2021),
 ('Chase Sapphire Reserve', 180000, 3, 2021);
 
-
+INSERT INTO monthly_cards_issued (card_name, issued_amount, issue_month, issue_year)
+VALUES
+('Chase Freedom Flex', 75000, 5, 2021),
+('Chase Sapphire Reserve', 185000, 4, 2021);
 
 SELECT * FROM monthly_cards_issued;
 

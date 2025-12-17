@@ -128,5 +128,49 @@ AND
 WHERE
     o.ship_days > m.avg_ship_days;
 
+-- 3️ Recursive query: list all subordinates for a given manager
+-- Create Employees Table
+CREATE TABLE Employees (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(255) NOT NULL,
+    manager_id INT,
+    FOREIGN KEY (manager_id) REFERENCES Employees(employee_id)
+);  
+-- Insert Sample Data into Employees Table
+INSERT INTO Employees (employee_id, employee_name, manager_id) VALUES
+(1, 'Alice', NULL),
+(2, 'Bob', 1),
+(3, 'Charlie', 1),
+(4, 'David', 2),
+(5, 'Eve', 2),
+(6, 'Frank', 3),
+(7, 'Grace', 3),
+(8, 'Heidi', 4);
+
+SELECT * FROM Employees;
+
+WITH RECURSIVE subordinatesList AS(
+    SELECT 
+        emp_id,
+        emp_name,
+        manager_id,
+        0 AS Level
+    FROM Employees
+    WHERE manager_id IS NULL
+    UNION ALL
+    -- recursion : indirect reports
+    SELECT 
+        e.emp_id,
+        e.emp_name,
+        e.manager_id
+    FROM  
+        Employees e
+    INNER JOIN 
+        subordinatesList s
+    ON 
+       e.manager_id = e.emp_id
+)
+SELECT * FROM subordinatesList;
+
 
 
