@@ -391,14 +391,26 @@ WITH DisplyOnlyHighestSalaryEmploye AS (
 	)
 SELECT * FROM DisplyOnlyHighestSalaryEmploye WHERE Salary = Dept_By_High_Sal
 
-SELECT * FROM Employee;
-WITH  ThirdHighSalary AS(
+SELECT * FROM Employee ORDER BY DepartmentID ASC, Salary DESC ;
+WITH  RnkedBasedHighSalary AS(
 	SELECT 
 		ID,
 		Name AS EmployeeName,
 		DepartmentID,
 		Salary,
-		DENSE_RANK() OVER (ORDER BY Salary DESC) AS Rank_Number
+		-- DENSE_RANK() OVER (ORDER BY Salary DESC) AS Rank_Number
+		DENSE_RANK() OVER (PARTITION BY DepartmentID ORDER BY Salary DESC) AS Rank_Number
+
 	FROM Employee
 )
-SELECT * FROM ThirdHighSalary WHERE Rank_Number = 3
+--SELECT * FROM RnkedBasedHighSalary  WHERE Rank_Number = 1 ORDER BY Salary DESC;
+SELECT e.ID,
+	e.EmployeeName, 
+	e.Salary, 
+	d.Name AS Department_name 
+FROM RnkedBasedHighSalary AS e 
+	INNER JOIN Department AS d
+	ON e.DepartmentID = d.ID
+WHERE Rank_Number = 1 ORDER BY Salary DESC;
+
+SELECT * FROM [dbo].[Department];
