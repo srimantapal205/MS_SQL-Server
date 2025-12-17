@@ -147,3 +147,15 @@ GROUP BY
 
 
 -- 18. Get month-over-month sales growth
+SELECT 
+	YEAR(OrderDate) AS OrderYear,
+	MONTH(OrderDate) AS OrderMonth,
+	SUM(TotalAmount) AS MonthalySales,
+	LAG(SUM(TotalAmount)) OVER(ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS PrevMonthSales,
+	SUM(TotalAmount) - LAG(SUM(TotalAmount)) OVER(ORDER BY YEAR(OrderDate), MONTH(OrderDate)) AS Growth
+FROM
+	Orders
+GROUP BY YEAR(OrderDate), MONTH(OrderDate);
+
+-- 19. Retrieve top 3 products by category
+SELECT * FROM Sales;
