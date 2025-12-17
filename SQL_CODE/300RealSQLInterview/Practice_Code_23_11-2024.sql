@@ -40,3 +40,33 @@ WITH MonthDifEmp AS (
 	FROM employees
 )
 SELECT * FROM MonthDifEmp WHERE Date_month < = 6; 
+
+
+-- 6. Get departments with no employees.
+
+SELECT * FROM [dbo].[departments];
+
+SELECT department_name FROM departments d LEFT JOIN employees e ON d.department_id = e.department_id WHERE e.id IS NULL;
+
+
+-- 7. Write a query to find the median salary.
+SELECT 
+	AVG(salary) AS Avarage_Salary 
+FROM 
+	(SELECT 
+		salary 
+	FROM 
+		employees 
+	ORDER BY 
+		salary LIMIT 2 - (SELECT COUNT(*) FROM employees) % 2 OFFSET(SELECT COUNT(*) -1) /  2 FROM emp employees)
+		
+	) AS medial_sbuquery;
+
+-- 8. Running total of salaries by department.
+SELECT
+	name, 
+	department_id, 
+	salary,
+	SUM(salary), OVER(PARTITION BY department_id ORDER BY id) AS running_total
+FROM 
+	employees
