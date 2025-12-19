@@ -138,7 +138,7 @@ ORDER BY
     YearOfYear, YearOfMonth, MonthOfDay, HourOfDay, MinuteOfHour, SecondOfMinute; 
 
 -- Quarterly Summary
--- (Q1 = Jan–Mar, Q2 = Apr–Jun, Q3 = Jul–Sep, Q4 = Oct–Dec)
+-- (Q1 = Jan - Mar, Q2 = Apr - Jun, Q3 = Jul - Sep, Q4 = Oct - Dec)
 
 WITH combineTable AS (
 	SELECT 
@@ -178,7 +178,7 @@ ORDER BY
 
 
 -- Half-Yearly Summary
--- Half-year groups: H1 = Jan–Jun, H2 = Jul–Dec
+-- Half-year groups: H1 = Janï¿½Jun, H2 = Julï¿½Dec
 
 WITH combineTable AS (
 	SELECT 

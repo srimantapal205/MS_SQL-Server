@@ -111,6 +111,7 @@ INSERT INTO departments VALUES
 
 
 INSERT INTO employees VALUES
+(11, 'Eva', 'Female', 72000, '2025-08-12', 1, 20, 'Developer'),
 (1, 'Alice', 'Female', 85000, '2018-02-15', NULL, 20, 'Director'),
 (2, 'Bob', 'Male', 76000, '2019-04-10', 1, 20, 'Developer'),
 (3, 'Carol', 'Female', 72000, '2020-06-12', 1, 20, 'Developer'),
