@@ -1,6 +1,8 @@
 CREATE DATABASE DaysSqlPractice_30;
 GO
 
+USE DaysSqlPractice_30;
+GO
 
 CREATE TABLE orders (
     order_id     INT PRIMARY KEY,
@@ -9,7 +11,8 @@ CREATE TABLE orders (
     amount       INT
 );
 
- 
+
+
  INSERT INTO orders (order_id, customer_id, order_date, amount) VALUES
 (101, 1, '2024-01-01', 500),
 (102, 1, '2024-01-10', 700),
