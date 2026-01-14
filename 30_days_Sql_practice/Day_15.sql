@@ -5,6 +5,7 @@ Find employees who:
 	Earn more than the company-wide average salary
 	Earn less than the highest salary in their own department
 */
+
 USE [DaysSqlPractice_30];
 GO
 
@@ -26,6 +27,6 @@ INSERT INTO employee5table (emp_id, emp_name, department_id, salary) VALUES
 SELECT * FROM employee5table;
 
 SELECT * FROM employee5table e WHERE salary > (SELECT AVG(salary) FROM employee5table)
-    AND salary < (
-        SELECT MAX(salary) FROM employee5table WHERE department_id = e.department_id
-    ) 
+AND salary < (
+    SELECT MAX(salary) FROM employee5table WHERE department_id = e.department_id
+) 
